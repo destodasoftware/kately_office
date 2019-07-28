@@ -11,7 +11,7 @@ biasa Anda kerjakan sendiri.
 
 ## Preview
 
-![Kately - Destoda Software](p1.png)
+![Kately - Destoda Software](p2.png)
 
 ## Setup
 
