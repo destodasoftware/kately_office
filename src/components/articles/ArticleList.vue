@@ -1,28 +1,27 @@
 <template>
-  <div class="card bg-light">
-    <div class="card-header">
-      Daftar Kategori
-    </div>
-    <div class="card-body" v-if="propCategories.length > 0">
+  <div class="card bg-light bg-light">
+    <div class="card-body" v-if="propArticles.length > 0">
       <!-- Search -->
-      <KatelySearch :propPlaceholder="'Cari Kategori'" @search="categoryListSearch" />
-      <table class="table table-borderless table-hover">
+      <KatelySearch :propPlaceholder="'Cari Artikel'" @search="articleListSearch" />
+      <table class="table table-borderless table-striped">
         <thead>
-          <tr class="bg-info text-white">
+          <tr>
             <th>ID</th>
-            <th>Nama Kategori</th>
+            <th>Nama Artikel</th>
+            <th>Nama Brand</th>
           </tr>
         </thead>
         <tbody>
           <tr
             style="cursor: pointer;"
-            :class="{'table-info': c === category}"
-            v-for="c in propCategories"
-            :key="c.id"
-            @click="categoryRetrieve(c)"
+            :class="{'table-info': b === article}"
+            v-for="b in propArticles"
+            :key="b.id"
+            @click="articleRetrieve(b)"
           >
-            <td>{{ c.id }}</td>
-            <td>{{ c.name }}</td>
+            <td>{{ b.id }}</td>
+            <td>{{ b.name }}</td>
+            <td>{{ b.brand_name }}</td>
           </tr>
         </tbody>
       </table>
@@ -32,7 +31,7 @@
         @paginate="paginate"
       />
     </div>
-    <div class="card" v-if="propCategories.length <= 0">
+    <div class="card" v-if="propArticles.length <= 0">
       <div class="card-body">
         Tidak ada data yang ditampilkan! <a @click="reload" href="javascript:void(1)">Muat ulang</a>
       </div>
@@ -44,20 +43,20 @@
 import KatelyPagination from '@/commons/KatelyPagination'
 import KatelySearch from '@/commons/KatelySearch'
 
-/* eslint-disable */ 
+/* eslint-disable */
 export default {
-  name: 'CategoryList',
+  name: 'ArticleList',
   components: {
     KatelyPagination,
     KatelySearch
   },
   props: {
-    propCategories: Array,
+    propArticles: Array,
     propPagination: Object
   },
   data () {
     return {
-      category: undefined,
+      article: undefined,
       query: {
         name: '',
         page: ''
@@ -65,24 +64,28 @@ export default {
     }
   },
   methods: {
-    categoryRetrieve (value) {
-      this.category = value
-      this.$emit('categoryRetrieve', value)
+    articleRetrieve (value) {
+      this.article = value
+      this.$emit('articleRetrieve', value)
     },
-    categoryListSearch (query) {
+    articleListSearch (query) {
       this.query.page = undefined
       this.query.name = query
-      this.$emit('categoryListSearch', this.query)
+      this.$emit('articleListSearch', this.query)
     },
     reload () {
       this.query.name = ''
       this.query.page = ''
-      this.categoryListSearch()
+      this.articleListSearch()
     },
     paginate (page) {
       this.query.page = page
-      this.$emit('categoryListSearch', this.query)
+      this.$emit('articleListSearch', this.query)
     }
   }
 }
 </script>
+
+<style>
+
+</style>

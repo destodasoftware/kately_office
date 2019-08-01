@@ -1,7 +1,7 @@
 <template>
   <div>
     <KatelyNavigation />
-    <div class="container-fluid">
+    <div class="container">
       <div class="row mt-3">
         <div class="col-md-12">
           <slot name="content"></slot>

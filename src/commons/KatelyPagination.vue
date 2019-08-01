@@ -1,6 +1,6 @@
 <template>
   <!-- Pagination -->
-  <nav v-if="propPagination" aria-label="..." class="mt-2">
+  <nav v-if="propPagination" aria-label="..." class="mt-2 no-print">
     <ul class="pagination">
       <li v-if="propPagination.previous" class="page-item">
         <a

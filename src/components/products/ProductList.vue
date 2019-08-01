@@ -1,26 +1,31 @@
 <template>
-  <div class="card bg-light border-light">
-    <div class="card-body" v-if="propBrands.length > 0">
-      <small class="text-muted">Daftar Brand</small>
+  <div class="card bg-light bg-light">
+    <div class="card-body" v-if="propProducts.length > 0">
       <!-- Search -->
-      <KatelySearch class="mt-2" :propPlaceholder="'Cari Brand'" @search="brandListSearch" />
+      <KatelySearch :propPlaceholder="'Cari Produk'" @search="productListSearch" />
       <table class="table table-borderless table-striped">
         <thead>
-          <tr class="">
+          <tr>
             <th>ID</th>
-            <th>Nama Brand</th>
+            <th>Nama Produk</th>
+            <th>Kategori</th>
+            <th>Price</th>
+            <th>Article</th>
           </tr>
         </thead>
         <tbody>
           <tr
             style="cursor: pointer;"
-            :class="{'table-primary': b === brand}"
-            v-for="b in propBrands"
+            :class="{'table-info': b === product}"
+            v-for="b in propProducts"
             :key="b.id"
-            @click="brandRetrieve(b)"
+            @click="productRetrieve(b)"
           >
             <td>{{ b.id }}</td>
             <td>{{ b.name }}</td>
+            <td>{{ b.category_name }}</td>
+            <td>Rp. {{ b.price }}</td>
+            <td>{{ b.article_name }}</td>
           </tr>
         </tbody>
       </table>
@@ -30,7 +35,7 @@
         @paginate="paginate"
       />
     </div>
-    <div class="card" v-if="propBrands.length <= 0">
+    <div class="card" v-if="propProducts.length <= 0">
       <div class="card-body">
         Tidak ada data yang ditampilkan! <a @click="reload" href="javascript:void(1)">Muat ulang</a>
       </div>
@@ -41,20 +46,21 @@
 <script>
 import KatelyPagination from '@/commons/KatelyPagination'
 import KatelySearch from '@/commons/KatelySearch'
+
 /* eslint-disable */
 export default {
-  name: 'BrandList',
+  name: 'ProductList',
   components: {
     KatelyPagination,
     KatelySearch
   },
   props: {
-    propBrands: Array,
+    propProducts: Array,
     propPagination: Object
   },
   data () {
     return {
-      brand: undefined,
+      product: undefined,
       query: {
         name: '',
         page: ''
@@ -62,23 +68,23 @@ export default {
     }
   },
   methods: {
-    brandRetrieve (value) {
-      this.brand = value
-      this.$emit('brandRetrieve', value)
+    productRetrieve (value) {
+      this.product = value
+      this.$emit('productRetrieve', value)
     },
-    brandListSearch (query) {
+    productListSearch (query) {
       this.query.page = undefined
       this.query.name = query
-      this.$emit('brandListSearch', this.query)
+      this.$emit('productListSearch', this.query)
     },
     reload () {
       this.query.name = ''
       this.query.page = ''
-      this.brandListSearch()
+      this.productListSearch()
     },
     paginate (page) {
       this.query.page = page
-      this.$emit('brandListSearch', this.query)
+      this.$emit('productListSearch', this.query)
     }
   }
 }

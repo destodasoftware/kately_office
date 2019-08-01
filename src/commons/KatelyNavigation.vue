@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <b-navbar toggleable="sm" type="dark" variant="primary">
-      <b-navbar-brand :to="{name: 'DashboardMainManager'}">
-        <KatelyLoadingInterceptor /> Kately Office
+  <div class="container">
+    <b-navbar toggleable="sm" type="light" variant="faded">
+      <b-navbar-brand class="text-primary" :to="{name: 'DashboardMainManager'}">
+        <KatelyLoadingInterceptor /> Efg/567 <span class="badge badge-pill badge-light">Sistem Ritel</span>
       </b-navbar-brand>
       <b-navbar-nav>
         <!-- Navbar dropdowns -->
@@ -17,18 +17,38 @@
           >
             Brand
           </b-dropdown-item>
-          <b-dropdown-item href="#">Artikel</b-dropdown-item>
-          <b-dropdown-item href="#">Produk</b-dropdown-item>
-          <b-dropdown-item href="#">Pelanggan</b-dropdown-item>
+          <b-dropdown-item
+            :to="{name: 'ArticleMainManager'}"
+          >
+            Artikel
+          </b-dropdown-item>
+          <b-dropdown-item
+            :to="{name: 'ProductMainManager'}"
+          >
+            Produk
+          </b-dropdown-item>
+          <!-- <b-dropdown-item href="#">Pelanggan</b-dropdown-item> -->
         </b-nav-item-dropdown>
         <b-nav-item-dropdown text="Transaksi" right>
-          <b-dropdown-item href="#">Penjualan</b-dropdown-item>
+          <b-dropdown-item
+            :to="{name: 'PurchasingMainManager'}"
+          >
+            Persediaan Produk
+          </b-dropdown-item>
+          <b-dropdown-item
+            :to="{name: 'SaleMainManager'}"
+          >
+            Persediaan Produk
+          </b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item-dropdown text="Laporan" right>
           <b-dropdown-item href="#">Penjualan</b-dropdown-item>
           <b-dropdown-item href="#">Omzet</b-dropdown-item>
           <b-dropdown-item href="#">Stok Produk</b-dropdown-item>
         </b-nav-item-dropdown>
+      </b-navbar-nav>
+      <b-navbar-nav class="ml-auto" >
+        <b-nav-item :to="{name: 'AboutMainManager'}" right>Copyright & Credits</b-nav-item>
       </b-navbar-nav>
     </b-navbar>
   </div>

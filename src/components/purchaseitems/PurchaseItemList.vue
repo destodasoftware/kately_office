@@ -1,26 +1,33 @@
 <template>
   <div class="card bg-light border-light">
-    <div class="card-body" v-if="propBrands.length > 0">
-      <small class="text-muted">Daftar Brand</small>
+    <div class="card-body" v-if="propPurchaseItems.length > 0">
       <!-- Search -->
-      <KatelySearch class="mt-2" :propPlaceholder="'Cari Brand'" @search="brandListSearch" />
+      <KatelySearch :propPlaceholder="'Cari Item'" @search="purchaseItemListSearch" />
       <table class="table table-borderless table-striped">
         <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Nama Brand</th>
+          <tr>
+            <th class="no-print">ID</th>
+            <th>SKU</th>
+            <th>Brand/Client</th>
+            <th>Artikel</th>
+            <th>Produk</th>
+            <th>Jumlah</th>
           </tr>
         </thead>
         <tbody>
           <tr
             style="cursor: pointer;"
-            :class="{'table-primary': b === brand}"
-            v-for="b in propBrands"
+            :class="{'table-info': b === purchaseItem}"
+            v-for="b in propPurchaseItems"
             :key="b.id"
-            @click="brandRetrieve(b)"
+            @click="purchaseItemRetrieve(b)"
           >
-            <td>{{ b.id }}</td>
-            <td>{{ b.name }}</td>
+            <td class="no-print">{{ b.id }}</td>
+            <td>{{ b.product_sku }}</td>
+            <td>{{ b.brand }}</td>
+            <td>{{ b.product_article }}</td>
+            <td>{{ b.product_name }}</td>
+            <td>{{ b.quantity }}</td>
           </tr>
         </tbody>
       </table>
@@ -30,7 +37,7 @@
         @paginate="paginate"
       />
     </div>
-    <div class="card" v-if="propBrands.length <= 0">
+    <div class="card" v-if="propPurchaseItems.length <= 0">
       <div class="card-body">
         Tidak ada data yang ditampilkan! <a @click="reload" href="javascript:void(1)">Muat ulang</a>
       </div>
@@ -41,20 +48,21 @@
 <script>
 import KatelyPagination from '@/commons/KatelyPagination'
 import KatelySearch from '@/commons/KatelySearch'
+
 /* eslint-disable */
 export default {
-  name: 'BrandList',
+  name: 'PurchaseItemList',
   components: {
     KatelyPagination,
     KatelySearch
   },
   props: {
-    propBrands: Array,
+    propPurchaseItems: Array,
     propPagination: Object
   },
   data () {
     return {
-      brand: undefined,
+      purchaseItem: undefined,
       query: {
         name: '',
         page: ''
@@ -62,23 +70,23 @@ export default {
     }
   },
   methods: {
-    brandRetrieve (value) {
-      this.brand = value
-      this.$emit('brandRetrieve', value)
+    purchaseItemRetrieve (value) {
+      this.purchaseItem = value
+      this.$emit('purchaseItemRetrieve', value)
     },
-    brandListSearch (query) {
+    purchaseItemListSearch (query) {
       this.query.page = undefined
       this.query.name = query
-      this.$emit('brandListSearch', this.query)
+      this.$emit('purchaseItemListSearch', this.query)
     },
     reload () {
       this.query.name = ''
       this.query.page = ''
-      this.brandListSearch()
+      this.purchaseItemListSearch()
     },
     paginate (page) {
       this.query.page = page
-      this.$emit('brandListSearch', this.query)
+      this.$emit('purchaseItemListSearch', this.query)
     }
   }
 }

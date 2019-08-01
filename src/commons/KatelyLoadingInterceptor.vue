@@ -1,5 +1,5 @@
 <template>
-  <b-spinner class="float-right spin" v-if="state" variant="light" type="grow" label="Loading..."></b-spinner>
+  <b-spinner class="float-right spin" v-if="state" variant="primary" type="grow" label="Loading..."></b-spinner>
 </template>
 
 <script>
