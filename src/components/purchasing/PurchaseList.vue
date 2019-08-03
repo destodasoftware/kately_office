@@ -1,9 +1,17 @@
 <template>
   <div class="card bg-light bg-light">
-    <div class="card-body" v-if="propPurchases.length > 0">
+    <div
+      class="card-body"
+      v-if="propPurchases.length > 0"
+    >
       <!-- Search -->
-      <KatelySearch :propPlaceholder="'Cari Transaksi'" @search="purchaseListSearch" />
-      <table class="table table-borderless table-striped">
+      <KatelySearch
+        :propPlaceholder="'Cari Transaksi'"
+        @search="purchaseListSearch"
+      />
+      <table
+        class="table table-borderless table-striped"
+      >
         <thead>
           <tr>
             <th>Nomer Persediaan</th>
@@ -27,8 +35,18 @@
             <td>{{ b.supplier }}</td>
             <td>{{ b.pic }}</td>
             <td>{{ b.total_stock }}</td>
-            <td v-if="b.is_adjusment" class="text-success">Done!</td>
-            <td v-if="!b.is_adjusment" class="text-danger">Tertahan!</td>
+            <td
+              v-if="b.is_adjusment"
+              class="text-success"
+            >
+              Done!
+            </td>
+            <td
+              v-if="!b.is_adjusment"
+              class="text-danger"
+            >
+              Tertahan!
+            </td>
           </tr>
         </tbody>
       </table>
@@ -38,9 +56,18 @@
         @paginate="paginate"
       />
     </div>
-    <div class="card" v-if="propPurchases.length <= 0">
+    <div
+      class="card"
+      v-if="propPurchases.length <= 0"
+    >
       <div class="card-body">
-        Tidak ada data yang ditampilkan! <a @click="reload" href="javascript:void(1)">Muat ulang</a>
+        Tidak ada data yang ditampilkan!
+        <a
+          @click="reload"
+          href="javascript:void(1)"
+        >
+          Muat ulang
+        </a>
       </div>
     </div>
   </div>

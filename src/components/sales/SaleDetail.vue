@@ -25,7 +25,7 @@
         <div class="form-group row no-print">
           <label class="col-md-3">Status</label>
           <div class="col-md-9">
-            <select v-model="sale.status" class="custom-select">
+            <select v-model="sale.status" disabled class="custom-select">
               <option v-for="st in status" :key="st.value" :value="st.value">
                 {{ st.text }}
               </option>
@@ -48,16 +48,16 @@ export default {
       sale: undefined,
       status: [
         {
-          value: 'unfulfilled',
-          text: 'Unfulfilled'
+          value: 'open',
+          text: 'Baru'
         },
         {
-          value: 'fulfilled',
-          text: 'Fulfilled'
+          value: 'archived',
+          text: 'Arsip'
         },
         {
-          value: 'finish',
-          text: 'Finish'
+          value: 'cancel',
+          text: 'Cancel'
         }
       ]
     }

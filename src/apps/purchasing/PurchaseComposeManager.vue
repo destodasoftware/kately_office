@@ -2,15 +2,21 @@
   <KatelyBaseLayout>
     <div slot="content" class="row mb-4 no-print">
       <div class="col-md-12">
-        <h1 v-if="purchase" class="display-4">
+        <h1 v-if="purchase">
           Persediaan {{ purchase.purchase_number }} / {{ purchase.pic }}
         </h1>
       </div>
     </div>
     <div slot="content" class="row mb-4">
       <div class="col-md-12">
-        <PurchaseCreate @purchaseCreate="purchaseCreate" />
-        <PurchaseStockUp v-if="purchase" @purchaseStockUp="purchaseStockUp" :propPurchase="purchase" />
+        <PurchaseCreate
+          @purchaseCreate="purchaseCreate"
+        />
+        <PurchaseStockUp
+          v-if="purchase"
+          @purchaseStockUp="purchaseStockUp"
+          :propPurchase="purchase"
+        />
         <KatelyPrintButton />
         <KatelyBackButton />
       </div>
@@ -276,7 +282,7 @@ export default {
             this.product = response.data.results[0]
             if (this.isAvailableProduct(this.product)) {
               let sounding = new Audio('./static/sound.wav')
-              sounding.play()           
+              sounding.play()
               this.purchaseItemCreate()
             } else {
               new Audio('./static/warning.wav').play()

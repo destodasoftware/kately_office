@@ -1,20 +1,5 @@
 <template>
   <div v-if="propPurchase">
-    <!-- Detail -->
-    <!-- <div @click="edit" v-if="!purchase" class="card border-light bg-light click">
-      <div class="card-body">
-        <small class="text-muted">Info Penyediaan Produk</small>
-        <h4 class="card-title text-primary">
-          {{ propPurchase.purchase_number }}
-        </h4>
-        <p class="text-dark">
-          <span class="badge badge-pill badge-primary">{{ propPurchase.pic }}</span>
-          <span class="badge badge-pill badge-primary">Total: {{ propPurchase.total_stock }}</span>
-          <span class="badge badge-pill badge-dark">{{ propPurchase.supplier }}</span>
-          <span class="badge badge-pill badge-dark">{{ propPurchase.create }}</span>
-        </p>
-      </div>
-    </div> -->
     <!-- Update -->
     <div v-if="purchase" class="card bg-light border-light">
       <div class="card-body">

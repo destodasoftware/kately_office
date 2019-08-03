@@ -11,7 +11,8 @@ export default {
         sale_number: '',
         user: undefined,
         total: 0,
-        brand: undefined
+        brand: undefined,
+        status: 'open'
       }
     }
   },
