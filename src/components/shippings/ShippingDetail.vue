@@ -1,14 +1,14 @@
 <template>
-  <div v-if="propShipping">
-    <div v-if="article" class="card bg-light border-light">
+  <div>
+    <div v-if="shipping" class="card mb-4">
       <div class="card-body">
-        <small class="text-muted">Ubah Pengiriman</small>
+        <h4 class="card-title text-success">Alamat Pengiriman</h4>
         <div class="form-group">
           <label>Negara/Region</label>
           <input
             type="text"
             v-model="shipping.country"
-            class="form-control"
+            class="form-control bg-light"
             placeholder="Masukan negara / seperti 'Indonesia'"
           >
         </div>
@@ -17,7 +17,7 @@
           <input
             type="text"
             v-model="shipping.province"
-            class="form-control"
+            class="form-control bg-light"
             placeholder="Masukan propinsi / seperti 'DKI Jakarta'"
           >
         </div>
@@ -25,15 +25,15 @@
           <label>Kota</label>
           <input
             type="text"
-            v-model="shipping.province"
-            class="form-control"
+            v-model="shipping.city"
+            class="form-control bg-light"
             placeholder="Masukan kota / seperti 'Jakarta Barat'"
           >
         </div>
         <div class="form-group">
           <label>Alamat</label>
           <textarea
-            class="form-control"
+            class="form-control bg-light"
             cols="30"
             rows="10"
             v-model="shipping.address"
@@ -46,9 +46,13 @@
           <input
             type="text"
             v-model="shipping.postal_code"
-            class="form-control"
+            class="form-control bg-light"
             placeholder="Masukan postal code / seperti '11620'"
           >
+        </div>
+        <div class="form-group">
+          <button @click="shippingUpdate" class="btn btn-success">Simpan Perubahan</button>
+          <button @click="shippingDestroy" class="btn btn-light">Hapus</button>
         </div>
       </div>
     </div>
@@ -78,9 +82,12 @@ export default {
       this.$emit('shippingDestroy', value)
     }
   },
+  mounted () {
+    this.shipping = this.propShipping
+  },
   watch: {
-    propShipping (newValue, value) {
-      this.shipping = newValue
+    propShipping (n, o) {
+      this.shipping = n
     }
   }
 }

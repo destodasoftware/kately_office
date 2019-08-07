@@ -1,5 +1,5 @@
 <template>
-  <button @click="$router.go(-1)" class="btn btn-outline-secondary no-print">Kembali</button>
+  <button @click="$router.go(-1)" class="btn text-secondary btn-link no-print">Kembali</button>
 </template>
 
 <script>

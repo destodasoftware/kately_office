@@ -1,46 +1,33 @@
 <template>
   <div v-if="propPurchase">
     <!-- Update -->
-    <div v-if="purchase" class="card bg-light border-light">
+    <div v-if="purchase" class="card">
       <div class="card-body">
-        <small class="text-muted no-print">Ubah Penyediaan</small>
-        <div class="form-group row">
-          <label class="col-md-3">Nomer Transaksi</label>
-          <div class="col-md-9">
-            <p v-if="purchase.purchase_number" class="text-primary">{{ purchase.purchase_number }}</p>
-            <p v-if="!purchase.purchase_number" class="text-primary">-</p>
+        <h5 class="card-title">Persediaan</h5>
+        <div class="form-group">
+          <label>Nomer Transaksi</label>
+          <input v-model="purchase.purchase_number" type="text" class="form-control bg-light" disabled>
+        </div>
+        <div class="form-group">
+          <label>Status Stok ?</label>
+          <div>
+            <span class="font-weight-bold">{{ purchase.total_stock }}</span> stok
+            <span v-if="!purchase.is_adjusment" class="text-danger">tertahan.</span>
+            <span v-if="purchase.is_adjusment" class="text-primary">masuk.</span>
+            Penanggung jawab <span class="font-weight-bold">{{ purchase.pic }}</span>
           </div>
         </div>
-        <div class="form-group row no-print">
-          <label class="col-md-3">Supplier</label>
-          <div class="col-md-9">
-            <input v-debounce:500ms="purchaseUpdate" v-model="purchase.supplier" type="text" class="form-control" />
-          </div>
+        <div class="form-group">
+          <label>Supplier</label>
+          <input v-model="purchase.supplier" type="text" class="form-control bg-light">
         </div>
-        <div class="form-group row no-print">
-          <label class="col-md-3">Catatan</label>
-          <div class="col-md-9">
-            <input v-debounce:500ms="purchaseUpdate" v-model="purchase.note" type="text" class="form-control" />
-          </div>
+        <div class="form-group">
+          <label>Catatan</label>
+          <textarea v-model="purchase.note" rows="4" cols="30" class="form-control bg-light"></textarea>
         </div>
-        <div class="form-group row no-print">
-          <label class="col-md-3">Stok Naik?</label>
-          <div class="col-md-9">
-            <p v-if="!purchase.is_adjusment" class="text-danger">Tertahan!</p>
-            <p v-if="purchase.is_adjusment" class="text-success">Done!</p>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-md-3">Total Stok</label>
-          <div class="col-md-9">
-            <p>{{ purchase.total_stock }}</p>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-md-3">PIC</label>
-          <div class="col-md-9">
-            <p>{{ purchase.pic }}</p>
-          </div>
+        <div class="form-group">
+          <button class="btn btn-primary" @click="purchaseUpdate">Simpan Perubahan</button>
+          <button class="btn btn-light" @click="purchaseDestroy">Hapus</button>
         </div>
       </div>
     </div>

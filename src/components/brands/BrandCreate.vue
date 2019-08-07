@@ -1,20 +1,24 @@
 <template>
-  <div class="card mb-4 bg-light">
-    <div class="card-header">Tambah Brand</div>
-    <div class="card-body">
+  <div>
+    <button v-b-modal.modal-BrandCreate class="btn btn-primary">Brand Baru</button>
+    <b-modal
+      id="modal-BrandCreate"
+      header-bg-variant="primary"
+      header-text-variant="white"
+      title="Brand Baru"
+    >
       <div class="form-group">
         <label>Nama Brand</label>
         <input
-          @keyup.13="brandCreate"
           v-model="brand.name"
           type="text"
           class="form-control"
         />
       </div>
-      <div class="form-group">
+      <div slot="modal-footer">
         <button @click="brandCreate" class="btn btn-primary">Simpan</button>
       </div>
-    </div>
+    </b-modal>
   </div>
 </template>
 

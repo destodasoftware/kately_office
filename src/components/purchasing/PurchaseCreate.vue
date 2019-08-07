@@ -1,7 +1,24 @@
 <template>
-  <button @click="purchaseCreate" class="btn btn-primary no-print">
-    Transaksi Baru
-  </button>
+  <div>
+    <b-modal
+      id="modal-PurchaseCreate"
+      header-bg-variant="primary"
+      header-text-variant="white"
+      title="Persediaan Baru"
+    >
+      <div class="form-group">
+        <label>Vendor / Supplier</label>
+        <input v-model="purchase.supplier" type="text" class="form-control bg-light">
+      </div>
+      <div class="form-group">
+        <label>Catatan</label>
+        <textarea v-model="purchase.note" class="form-control bg-light" cols="30" rows="10"></textarea>
+      </div>
+      <div slot="modal-footer">
+        <button @click="purchaseCreate" class="btn btn-primary">Simpan</button>
+      </div>
+    </b-modal>
+  </div>
 </template>
 
 <script>

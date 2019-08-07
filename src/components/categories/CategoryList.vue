@@ -1,14 +1,12 @@
 <template>
-  <div class="card bg-light">
-    <div class="card-header">
-      Daftar Kategori
-    </div>
+  <div class="card">
     <div class="card-body" v-if="propCategories.length > 0">
+      <h5 class="card-title">Daftar Kategori</h5>
       <!-- Search -->
       <KatelySearch :propPlaceholder="'Cari Kategori'" @search="categoryListSearch" />
-      <table class="table table-borderless table-hover">
+      <table class="table table-hover">
         <thead>
-          <tr class="bg-info text-white">
+          <tr>
             <th>ID</th>
             <th>Nama Kategori</th>
           </tr>
@@ -16,7 +14,7 @@
         <tbody>
           <tr
             style="cursor: pointer;"
-            :class="{'table-info': c === category}"
+            :class="{'table-primary': c === category}"
             v-for="c in propCategories"
             :key="c.id"
             @click="categoryRetrieve(c)"
@@ -34,7 +32,8 @@
     </div>
     <div class="card" v-if="propCategories.length <= 0">
       <div class="card-body">
-        Tidak ada data yang ditampilkan! <a @click="reload" href="javascript:void(1)">Muat ulang</a>
+        Tidak ada data yang ditampilkan!
+        <a @click="reload" href="javascript:void(1)" class="text-primary">Muat ulang</a>
       </div>
     </div>
   </div>
@@ -44,7 +43,7 @@
 import KatelyPagination from '@/commons/KatelyPagination'
 import KatelySearch from '@/commons/KatelySearch'
 
-/* eslint-disable */ 
+/* eslint-disable */
 export default {
   name: 'CategoryList',
   components: {

@@ -14,6 +14,7 @@ import PurchasingMainManager from '@/apps/purchasing/PurchasingMainManager'
 import PurchaseComposeManager from '@/apps/purchasing/PurchaseComposeManager'
 import SaleMainManager from '@/apps/sales/SaleMainManager'
 import SaleComposeManager from '@/apps/sales/SaleComposeManager'
+import ReportSaleManager from '@/apps/reportings/ReportSaleManager'
 
 Vue.use(Router)
 
@@ -124,6 +125,14 @@ let router = new Router({
       path: '/SaleComposeManager/:id',
       name: 'SaleComposeManager',
       component: SaleComposeManager,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/report/sale',
+      name: 'ReportSaleManager',
+      component: ReportSaleManager,
       meta: {
         requiresAuth: true
       }

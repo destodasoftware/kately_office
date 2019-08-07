@@ -7,8 +7,8 @@
       id="modal-ShippingCreate"
       size="lg"
       scrollable
-      title="Pengiriman Bary"
-      @ok="customerCreate"
+      title="Pengiriman Baru"
+      @ok="shippingCreate"
     >
       <div class="form-row">
         <div class="form-group col-md-6">
@@ -24,8 +24,14 @@
           <input v-model="shipping.city" type="text" class="form-control">
         </div>
         <div class="form-group col-md-6">
+          <label>Postal Code</label>
+          <input v-model="shipping.postal_code" type="text" class="form-control">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
           <label>Alamat Lengkap</label>
-          <textarea v-model="shipping.address" cols="30" rows="10"></textarea>
+          <textarea class="form-control" v-model="shipping.address" cols="30" rows="10"></textarea>
         </div>
       </div>
     </b-modal>

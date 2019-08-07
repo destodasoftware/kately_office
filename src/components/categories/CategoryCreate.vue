@@ -1,19 +1,20 @@
 <template>
-  <div class="card mb-3 bg-light">
-    <div class="card-header">
-      Tambah Kategori
-    </div>
-    <div class="card-body">
+  <div class="mb-4">
+    <button v-b-modal.modal-CategoryCreate class="btn btn-primary">Kategori Baru</button>
+    <b-modal
+      header-bg-variant="primary"
+      header-text-variant="white"
+      id="modal-CategoryCreate"
+      title="Kategori Baru"
+    >
       <div class="form-group">
         <label>Nama Kategori</label>
-        <input @keyup.13="categoryCreate" v-model="category.name" type="text" class="form-control" />
+        <input v-model="category.name" type="text" class="form-control bg-light" />
       </div>
-      <div class="form-group">
-        <button @click="categoryCreate" class="btn btn-primary">
-          Simpan
-        </button>
+      <div slot="modal-footer">
+        <button @click="categoryCreate" class="btn btn-primary">Simpan</button>
       </div>
-    </div>
+    </b-modal>
   </div>
 </template>
 

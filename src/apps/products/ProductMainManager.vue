@@ -2,12 +2,13 @@
   <KatelyBaseLayout>
     <div slot="content" class="row mb-4">
       <div class="col-md-12">
-        <h1 class="display-4">Product</h1>
+        <h4>Kelola Produk</h4>
       </div>
     </div>
     <div slot="content" class="row mb-4">
       <div class="col-md-12">
         <ProductCreate @productCreate="productCreate" />
+        <button v-b-modal.modal-ProductCreate class="btn btn-primary">Produk Baru</button>
         <button @click="redirectBulk" class="btn btn-outline-primary">Import CSV</button>
       </div>
     </div>
@@ -60,7 +61,10 @@ export default {
     productList () {
       this.httpInit()
       const url = `${process.env.ROOT_API}/office/products/`
-      return this.axios.get(url)
+      const query = {
+        show_root: true
+      }
+      return this.axios.get(url, {params: query})
         .then((response) => {
           this.products = response.data.results
           this.setPagination(response)

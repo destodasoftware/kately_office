@@ -21,6 +21,9 @@ export default {
 #print-only {
   display: none !important;
 }
+#app > div {
+  background: #f5f6f8 !important;
+}
 @media print {
   #print-only {
     display: block !important;

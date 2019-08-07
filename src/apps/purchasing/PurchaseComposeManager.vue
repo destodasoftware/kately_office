@@ -2,27 +2,44 @@
   <KatelyBaseLayout>
     <div slot="content" class="row mb-4 no-print">
       <div class="col-md-12">
-        <h1 v-if="purchase">
-          Persediaan {{ purchase.purchase_number }} / {{ purchase.pic }}
-        </h1>
+        <h4 v-if="purchase">
+          {{ purchase.supplier }} <small class="text-muted">{{ purchase.purchase_number }}</small>
+        </h4>
       </div>
     </div>
     <div slot="content" class="row mb-4">
       <div class="col-md-12">
-        <PurchaseCreate
-          @purchaseCreate="purchaseCreate"
-        />
         <PurchaseStockUp
           v-if="purchase"
           @purchaseStockUp="purchaseStockUp"
           :propPurchase="purchase"
         />
         <KatelyPrintButton />
-        <KatelyBackButton />
       </div>
     </div>
     <div slot="content" class="row mb-4">
-      <div class="col-md-12">
+      <div class="col-md-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Keep Produk</h5>
+            <p class="card-text">
+              Pilih produk yang ingin dihitung dengan barcode.
+            </p>
+            <b-button variant="primary" v-b-modal="'modal-ProductList'">Pilih Produk</b-button>
+          </div>
+        </div>
+        <PurchaseItemDetail
+          :propPurchaseItem="purchaseItem"
+          @purchaseItemUpdate="purchaseItemUpdate"
+          @purchaseItemDestroy="purchaseItemDestroy"
+        />
+        <PurchaseItemList
+          :propPurchaseItems="purchaseItems"
+          :propPagination="pagination"
+          @purchaseItemRetrieve="purchaseItemRetrieve"
+        />
+      </div>
+      <div class="col-md-4">
         <PurchaseDetail
           :propPurchase="purchase"
           @purchaseUpdate="purchaseUpdate"
@@ -31,42 +48,23 @@
       </div>
     </div>
     <div slot="content" class="row mb-4">
-      <div class="col-md-6">
-        <div class="card text-center">
-          <div class="card-body">
-            <h5 class="card-title text-primary">Pilihan Produk</h5>
-            <p class="card-text text-dark">
-              Pilih produk untuk menjaga perhitungan stok pada
-              saat melakukan scanner menggunakan barcode.
-            </p>
-            <b-button variant="primary" v-b-modal="'my-modal'">Pilih</b-button>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <PurchaseItemDetail
-          :propPurchaseItem="purchaseItem"
-          @purchaseItemUpdate="purchaseItemUpdate"
+      <b-modal
+        id="modal-ProductList"
+        header-bg-variant="primary"
+        header-text-variant="white"
+        title="Keep Produk"
+      >
+        <ProductList
+          :propProducts="products"
+          :propPagination="paginationProduct"
+          @productRetrieve="productRetrieve"
+          @productListSearch="productListSearch"
         />
-      </div>
-      <b-modal id="my-modal">
-        <p class="my-4">
-          <ProductList
-            :propProducts="products"
-            :propPagination="paginationProduct"
-            @productRetrieve="productRetrieve"
-            @productListSearch="productListSearch"
-          />
-        </p>
       </b-modal>
     </div>
     <div slot="content" class="row mb-4">
       <div class="col-md-12">
-        <PurchaseItemList
-          :propPurchaseItems="purchaseItems"
-          :propPagination="pagination"
-          @purchaseItemRetrieve="purchaseItemRetrieve"
-        />
+
       </div>
     </div>
   </KatelyBaseLayout>
@@ -133,7 +131,12 @@ export default {
         })
     },
     purchaseDestroy (value) {
-      console.log('Not Implemented')
+      this.destroy('purchases', value.id, value)
+        .then((response) => {
+          this.$router.push({
+            name: 'PurchasingMainManager'
+          })
+        })
     },
     purchaseUpdate (value) {
       this.httpInit()
@@ -153,12 +156,7 @@ export default {
       return this.axios.post(url, value)
         .then((response) => {
           this.purchase = response.data
-          this.$router.push({
-            name: 'PurchaseComposeManager',
-            params: {
-              id: this.purchase.id
-            }
-          })
+          this.purchaseRetrieve()
         })
         .catch(error => {
           this.$bvToast.toast(error.message, error.config.option)
@@ -225,17 +223,22 @@ export default {
       this.purchaseItem = value
     },
     purchaseItemUpdate (value) {
-      if (!value.is_adjusment) {
-        return
-      }
       this.httpInit()
       const url = `${process.env.ROOT_API}/office/purchaseitems/${value.id}/`
       return this.axios.put(url, value)
         .then((response) => {
-          this.purchaseItem = response.data
+          this.purchaseItem = undefined
+          this.purchaseItemList()
         })
         .catch(error => {
           this.$bvToast.toast(error.message, error.config.option)
+        })
+    },
+    purchaseItemDestroy (value) {
+      this.destroy('purchaseitems', value.id)
+        .then((response) => {
+          this.purchaseItem = undefined
+          this.purchaseItemList()
         })
     },
     productList () {
@@ -319,16 +322,16 @@ export default {
     this.purchaseRetrieve()
     this.purchaseItemList()
     this.productList()
-  },
-  watch: {
-    purchase () {
-      this.purchaseItemList()
-    },
-    purchaseItem () {
-      this.purchaseItemList()
-      this.purchaseRetrieve()
-    }
   }
+  // watch: {
+  //   purchase () {
+  //     this.purchaseItemList()
+  //   },
+  //   purchaseItem () {
+  //     this.purchaseItemList()
+  //     this.purchaseRetrieve()
+  //   }
+  // }
 }
 </script>
 

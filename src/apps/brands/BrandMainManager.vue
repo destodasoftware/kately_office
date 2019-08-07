@@ -2,7 +2,7 @@
   <KatelyBaseLayout>
     <div slot="content" class="row mt-2">
       <div class="col-md-12">
-        <p class="h4 text-primary">Kelola Brand</p>
+        <h4>Kelola Brand</h4>
       </div>
     </div>
     <div slot="content" class="row mt-2">

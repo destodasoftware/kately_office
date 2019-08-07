@@ -1,15 +1,15 @@
 <template>
-  <div class="card bg-light border-light">
+  <div class="card">
     <div class="card-body" v-if="propPurchaseItems.length > 0">
+      <h5 class="card-title">Daftar Item Masuk</h5>
       <!-- Search -->
       <KatelySearch :propPlaceholder="'Cari Item'" @search="purchaseItemListSearch" />
-      <table class="table table-borderless table-striped">
+      <table class="table">
         <thead>
           <tr>
             <th class="no-print">ID</th>
             <th>SKU</th>
             <th>Brand/Client</th>
-            <th>Artikel</th>
             <th>Produk</th>
             <th>Jumlah</th>
           </tr>
@@ -17,7 +17,7 @@
         <tbody>
           <tr
             style="cursor: pointer;"
-            :class="{'table-info': b === purchaseItem}"
+            :class="{'table-primary': b === purchaseItem}"
             v-for="b in propPurchaseItems"
             :key="b.id"
             @click="purchaseItemRetrieve(b)"
@@ -25,7 +25,6 @@
             <td class="no-print">{{ b.id }}</td>
             <td>{{ b.product_sku }}</td>
             <td>{{ b.brand }}</td>
-            <td>{{ b.product_article }}</td>
             <td>{{ b.product_name }}</td>
             <td>{{ b.quantity }}</td>
           </tr>

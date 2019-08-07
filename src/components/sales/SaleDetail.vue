@@ -1,36 +1,27 @@
 <template>
-  <div v-if="propSale">
-    <div v-if="sale" class="card bg-light border-light">
+  <div>
+    <div v-if="sale" class="card mb-4">
       <div class="card-body">
-        <small class="text-muted no-print">Ubah Penjualan</small>
-        <div class="form-group row">
-          <label class="col-md-3">Nomer Transaksi</label>
-          <div class="col-md-9">
-            <p v-if="sale.sale_number" class="text-primary">{{ sale.sale_number }}</p>
-            <p v-if="!sale.sale_number" class="text-primary">-</p>
-          </div>
+        <h4 class="text-success card-title">Penjualan</h4>
+        <div class="form-group">
+          <label class="text-secondary">
+            {{ sale.sale_number }} <br>
+            <small>{{ sale.pic }}</small>
+          </label>
         </div>
-        <div class="form-group row no-print">
-          <label class="col-md-3">PIC</label>
-          <div class="col-md-9">
-            <p>{{ sale.pic }}</p>
-          </div>
+        <div class="form-group no-print">
+          <label>Rp. {{ sale.total }} 10.000</label>
         </div>
-        <div class="form-group row no-print">
-          <label class="col-md-3">Total Penjualan</label>
-          <div class="col-md-9">
-            <p>{{ sale.total }}</p>
-          </div>
+        <div class="form-group no-print">
+          <label>Status</label>
+          <select v-model="sale.status" disabled class="custom-select">
+            <option v-for="st in status" :key="st.value" :value="st.value">
+              {{ st.text }}
+            </option>
+          </select>
         </div>
-        <div class="form-group row no-print">
-          <label class="col-md-3">Status</label>
-          <div class="col-md-9">
-            <select v-model="sale.status" disabled class="custom-select">
-              <option v-for="st in status" :key="st.value" :value="st.value">
-                {{ st.text }}
-              </option>
-            </select>
-          </div>
+        <div class="form-group no-print">
+          <button class="btn btn-success">Simpan Perubahan</button>
         </div>
       </div>
     </div>
@@ -75,16 +66,16 @@ export default {
     },
     saleDestroy () {
       const value = Object.assign({}, this.sale)
-      this.purchase = undefined
+      this.sale = undefined
       this.$emit('saleDestroy', value)
     }
   },
+  created () {
+    this.sale = this.propSale
+  },
   watch: {
-    saleDestroy (n, o) {
-      this.sale = undefined
-    },
     propSale (n, o) {
-      this.sale = this.propSale
+      this.sale = n
     }
   }
 }

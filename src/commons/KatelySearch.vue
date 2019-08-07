@@ -4,7 +4,7 @@
       type="text"
       v-model="query"
       @keyup.13="search"
-      class="form-control bg-light border-light"
+      class="form-control bg-light"
       :placeholder="propPlaceholder"
     />
   </div>

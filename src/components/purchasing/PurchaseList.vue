@@ -1,23 +1,15 @@
 <template>
-  <div class="card bg-light bg-light">
-    <div
-      class="card-body"
-      v-if="propPurchases.length > 0"
-    >
+  <div class="card">
+    <div class="card-body" v-if="propPurchases.length > 0">
       <!-- Search -->
-      <KatelySearch
-        :propPlaceholder="'Cari Transaksi'"
-        @search="purchaseListSearch"
-      />
-      <table
-        class="table table-borderless table-striped"
-      >
+      <KatelySearch :propPlaceholder="'Cari Transaksi'" @search="purchaseListSearch" />
+      <table class="table">
         <thead>
           <tr>
             <th>Nomer Persediaan</th>
             <th>Tanggal</th>
             <th>Vendor</th>
-            <th>Penanggung Jawab</th>
+            <th>PIC</th>
             <th>Total Stok</th>
             <th>Stok Naik?</th>
           </tr>
@@ -25,7 +17,7 @@
         <tbody>
           <tr
             style="cursor: pointer;"
-            :class="{'table-info': b === purchase}"
+            :class="{'table-primary': b === purchase}"
             v-for="b in propPurchases"
             :key="b.id"
             @click="purchaseRetrieve(b)"
@@ -56,18 +48,10 @@
         @paginate="paginate"
       />
     </div>
-    <div
-      class="card"
-      v-if="propPurchases.length <= 0"
-    >
+    <div class="card" v-if="propPurchases.length <= 0">
       <div class="card-body">
         Tidak ada data yang ditampilkan!
-        <a
-          @click="reload"
-          href="javascript:void(1)"
-        >
-          Muat ulang
-        </a>
+        <a @click="reload" href="javascript:void(1)">Muat ulang</a>
       </div>
     </div>
   </div>

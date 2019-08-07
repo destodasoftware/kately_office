@@ -72,13 +72,9 @@
 
 <script>
 import KatelyBaseLayout from '@/commons/KatelyBaseLayout'
-import MixinHttp from '@/mixins/MixinHttp'
 
 export default {
   name: 'PurchasingMainManager',
-  mixins: [
-    MixinHttp
-  ],
   components: {
     KatelyBaseLayout
   }

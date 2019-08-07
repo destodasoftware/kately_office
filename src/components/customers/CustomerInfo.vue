@@ -1,20 +1,15 @@
 <template>
   <div class="mb-4">
-    <div v-if="!propCustomerId" class="card border-light bg-light">
+    <div v-if="!propCustomerId" class="card">
       <div class="card-body">
-        <small class="text-muted">Info Pelanggan</small>
+        <h4 class="card-title text-success">Info Pelanggan</h4>
         <p>Ups, Tidak ada yang bisa ditampilkan!</p>
       </div>
     </div>
-    <div v-if="propCustomerId" class="card border-light bg-light">
+    <div v-if="propCustomerId" class="card">
       <div v-if="customer" class="card-body">
-        <small class="text-muted">Info Pelanggan</small>
-        <h4 class="card-title text-primary">
-          {{ customer.name }}
-        </h4>
-        <p class="text-secondary">
-          {{ customer.customer_number }} / {{ customer.email }}
-        </p>
+        <h4 class="card-title text-success">Info Pelanggan</h4>
+        <p class="card-text">{{ customer.email }}</p>
       </div>
     </div>
   </div>

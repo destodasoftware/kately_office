@@ -1,15 +1,17 @@
 <template>
-  <div>
-    <div v-if="propBrandId" class="card border-light bg-light">
+  <div class="mb-4">
+    <div v-if="propBrandId" class="card">
       <div v-if="brand" class="card-body">
-        <small class="text-muted">Info Brand</small>
-        <h4 class="card-title text-primary">{{ brand.name }}</h4>
+        <h5 class="card-text">Brand</h5>
+        <p class="card-title">{{ brand.name }}</p>
       </div>
     </div>
-    <div v-if="!propBrandId" class="card border-light bg-light">
+    <div v-if="!propBrandId" class="card">
       <div class="card-body">
-        <small class="text-muted">Info Brand</small>
-        <p class="">Ups, Tidak ada yang bisa ditampilkan!</p>
+        <h5 class="card-text">Brand</h5>
+        <p class="card-title">
+          Sepertinya Anda belum memilihnya
+        </p>
       </div>
     </div>
   </div>

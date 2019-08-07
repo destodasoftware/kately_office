@@ -1,7 +1,51 @@
 <template>
-  <button @click="productCreate" class="btn btn-primary">
-    Produk Baru
-  </button>
+  <div>
+    <b-modal
+      id="modal-ProductCreate"
+      header-bg-variant="primary"
+      header-text-variant="light"
+      title="Produk Baru"
+    >
+      <div class="form-group">
+        <label>Nama Produk</label>
+        <input v-model="product.name" type="text" class="form-control bg-light">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Harga Beli / COGS</label>
+          <input v-model="product.cost" type="text" class="form-control bg-light">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Harga Jual</label>
+          <input v-model="product.price" type="text" class="form-control bg-light" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label>Stok</label>
+          <input v-model="product.stock" type="text" class="form-control bg-light" />
+        </div>
+        <div class="form-group col">
+          <label>Stok Minimum</label>
+          <input v-model="product.minimum_stock" type="text" class="form-control bg-light" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Warna</label>
+        <input v-model="product.color" type="text" class="form-control bg-light" />
+      </div>
+      <div class="form-group">
+        <label>Ukuran</label>
+        <input v-model="product.size" type="text" class="form-control bg-light" />
+      </div>
+      <template slot="modal-footer">
+        <!-- Emulate built in modal footer ok and cancel button actions -->
+        <b-button variant="primary" @click="productCreate">
+          Simpan
+        </b-button>
+    </template>
+    </b-modal>
+  </div>
 </template>
 
 <script>

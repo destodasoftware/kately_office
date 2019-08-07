@@ -1,15 +1,15 @@
 <template>
   <div class="mb-4">
-    <div v-if="propCategoryId" class="card border-light bg-light">
+    <div v-if="propCategoryId" class="card">
       <div v-if="category" class="card-body">
-        <small class="text-muted">Info Kategori</small>
-        <h4 class="card-title text-primary">{{ category.name }}</h4>
+        <h5 class="card-text">Kategori</h5>
+        <p class="card-title">{{ category.name }}</p>
       </div>
     </div>
-    <div v-if="!propCategoryId" class="card border-light bg-light">
+    <div v-if="!propCategoryId" class="card">
       <div class="card-body">
-        <small class="text-muted">Info Kategori</small>
-        <p class="">Ups, Tidak ada yang bisa ditampilkan!</p>
+        <h5 class="card-text">Kategori</h5>
+        <p class="card-title">Anda belum memilih kategori</p>
       </div>
     </div>
   </div>

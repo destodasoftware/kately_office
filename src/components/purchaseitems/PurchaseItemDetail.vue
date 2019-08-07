@@ -1,35 +1,23 @@
 <template>
-  <div>
-    <div v-if="!propPurchaseItem" class="card bg-light border-light no-print">
-      <div class="card-body text-dark">
-        Pilih item untuk mengedit! jika item belum tersedia, tambahkan item terlebih dahulu
-        dengan scanner barcode atau cara manual.
-      </div>
-    </div>
-    <div v-if="propPurchaseItem" class="card bg-light border-light">
-      <div class="card-body">
-        <small class="text-muted">Ubah Item Persediaan</small>
-        <div class="form-group row">
-          <label class="col-md-3">Produk SKU</label>
-          <div class="col-md-9">
-            <span v-if="purchaseItem.product_sku" class="text-primary">
-              {{ purchaseItem.product_sku }}
-            </span>
-          </div>
+  <div class="mb-4">
+    <div v-if="propPurchaseItem" class="card">
+      <div v-if="purchaseItem" class="card-body">
+        <h5 class="card-title">Detil Item Persediaan</h5>
+        <div class="form-group">
+          <label>SKU</label>
+          <input v-model="purchaseItem.product_sku" type="text" class="form-control bg-light" disabled>
         </div>
-        <div class="form-group row">
-          <label class="col-md-3">Produk</label>
-          <div class="col-md-9">
-            <span v-if="purchaseItem.product_name" class="text-primary">
-              {{ purchaseItem.product_article }} {{ purchaseItem.product_name }}
-            </span>
-          </div>
+        <div class="form-group">
+          <label>Produk</label>
+          <div class="text-primary">{{ purchaseItem.product_name }}</div>
         </div>
-        <div class="form-group row">
-          <label class="col-md-3">Jumlah Stok</label>
-          <div class="col-md-9">
-            <input v-debounce:500ms="purchaseItemUpdate" v-model="purchaseItem.quantity" type="text" class="form-control" />
-          </div>
+        <div class="form-group">
+          <label>Jumlah Stok</label>
+          <input v-model="purchaseItem.quantity" type="text" class="form-control bg-light">
+        </div>
+        <div class="form-group">
+          <button @click="purchaseItemUpdate" class="btn btn-primary">Simpan Perubahan</button>
+          <button @click="purchaseItemDestroy" class="btn btn-light">Hapus</button>
         </div>
       </div>
     </div>
@@ -48,15 +36,8 @@ export default {
     }
   },
   methods: {
-    edit () {
-      this.purchaseItem = Object.assign({}, this.propPurchaseItem)
-    },
-    abort () {
-      this.purchaseItem = undefined
-    },
     purchaseItemUpdate () {
-      const value = Object.assign({}, this.purchaseItem)
-      this.$emit('purchaseItemUpdate', value)
+      this.$emit('purchaseItemUpdate', this.purchaseItem)
     },
     purchaseItemDestroy () {
       const value = Object.assign({}, this.purchaseItem)

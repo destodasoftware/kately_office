@@ -1,43 +1,49 @@
 <template>
-  <div class="card bg-light bg-light">
-    <div class="card-body" v-if="propProducts.length > 0">
-      <!-- Search -->
-      <KatelySearch :propPlaceholder="'Cari Produk'" @search="productListSearch" />
-      <table class="table table-borderless table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nama Produk</th>
-            <th>Kategori</th>
-            <th>Price</th>
-            <th>Article</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            style="cursor: pointer;"
-            :class="{'table-info': b === product}"
-            v-for="b in propProducts"
-            :key="b.id"
-            @click="productRetrieve(b)"
-          >
-            <td>{{ b.id }}</td>
-            <td>{{ b.name }}</td>
-            <td>{{ b.category_name }}</td>
-            <td>Rp. {{ b.price }}</td>
-            <td>{{ b.article_name }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- Pagination -->
-      <KatelyPagination
-        :propPagination="propPagination"
-        @paginate="paginate"
-      />
-    </div>
-    <div class="card" v-if="propProducts.length <= 0">
-      <div class="card-body">
-        Tidak ada data yang ditampilkan! <a @click="reload" href="javascript:void(1)">Muat ulang</a>
+  <div>
+    <div class="card">
+      <div class="card-body" v-if="propProducts.length > 0">
+        <!-- Search -->
+        <KatelySearch :propPlaceholder="'Cari Produk'" @search="productListSearch" />
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Inventori</th>
+              <th>Jenis</th>
+              <th>Brand</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              style="cursor: pointer;"
+              :class="{'table-primary': b === product}"
+              v-for="b in propProducts"
+              :key="b.id"
+              @click="productRetrieve(b)"
+            >
+              <td>
+                {{ b.name }} <br>
+                <small class="text-muted">{{ b.sku }}</small>
+              </td>
+              <td>
+                {{ b.total_stock }}
+                <span v-if="b.number_variation">dari {{ b.number_variation }} varian</span>
+              </td>
+              <td>{{ b.category_name }}</td>
+              <td>{{ b.brand_name }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Pagination -->
+        <KatelyPagination
+          :propPagination="propPagination"
+          @paginate="paginate"
+        />
+      </div>
+      <div class="card" v-if="propProducts.length <= 0">
+        <div class="card-body">
+          Tidak ada data yang ditampilkan! <a @click="reload" href="javascript:void(1)">Muat ulang</a>
+        </div>
       </div>
     </div>
   </div>

@@ -1,30 +1,15 @@
 <template>
   <div v-if="propCategory">
-    <!-- Detail -->
-    <div v-if="!category" class="card bg-light">
-      <div class="card-header">
-        Info Kategori
-      </div>
-      <div class="card-body">
-        <span class="badge badge-info">
-            {{ propCategory.name }}
-        </span>
-        <a @click="edit" href="javascript:void(0)" class="btn btn-link">Edit</a>
-      </div>
-    </div>
     <!-- Update -->
-    <div v-if="category" class="card bg-light">
-      <div class="card-header">
-        Info Kategori
-      </div>
+    <div v-if="category" class="card">
       <div class="card-body">
+        <h5 class="card-title">Detil Kategori</h5>
         <div class="form-group">
           <label>Nama Kategori</label>
-          <input @keyup.13="categoryUpdate" v-model="category.name" type="text" class="form-control" />
+          <input v-model="category.name" type="text" class="form-control bg-light" />
         </div>
         <div class="form-group">
           <button @click="categoryUpdate" class="btn btn-primary">Simpan Perubahan</button>
-          <button @click="abort" class="btn btn-link">Batal</button>
           <button @click="categoryDestroy" class="btn btn-light">Hapus</button>
         </div>
       </div>
@@ -63,7 +48,7 @@ export default {
   },
   watch: {
     propCategory (n, o) {
-      this.category = undefined
+      this.category = n
     }
   }
 }

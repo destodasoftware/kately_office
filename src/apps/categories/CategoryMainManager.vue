@@ -1,11 +1,11 @@
 <template>
   <KatelyBaseLayout>
-    <div slot="content" class="row mt-2">
+    <div slot="content" class="row mb-4">
       <div class="col-md-12">
-        <p class="h4 text-primary">Kelola Kategori</p>
+        <h4>Kelola Kategori</h4>
       </div>
     </div>
-    <div slot="content" class="row mt-2">
+    <div slot="content" class="row mb-4">
       <div class="col-md-3 mb-4">
         <CategoryCreate @categoryCreate="categoryCreate"/>
         <CategoryDetail

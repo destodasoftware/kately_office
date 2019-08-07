@@ -1,8 +1,12 @@
 <template>
-  <div class="container">
-    <b-navbar toggleable="sm" type="light" variant="faded">
-      <b-navbar-brand class="text-primary" :to="{name: 'DashboardMainManager'}">
-        <KatelyLoadingInterceptor /> Efg/567 <span class="badge badge-pill badge-light">Sistem Ritel</span>
+  <div class="">
+    <b-navbar toggleable="sm" type="dark" variant="primary">
+      <b-navbar-brand class="text-white" :to="{name: 'DashboardMainManager'}">
+        <KatelyLoadingInterceptor />
+          Kately
+          <span class="badge badge-pill badge-light text-primary">
+            Sistem Ritel
+          </span>
       </b-navbar-brand>
       <b-navbar-nav>
         <!-- Navbar dropdowns -->
@@ -18,11 +22,6 @@
             Brand
           </b-dropdown-item>
           <b-dropdown-item
-            :to="{name: 'ArticleMainManager'}"
-          >
-            Artikel
-          </b-dropdown-item>
-          <b-dropdown-item
             :to="{name: 'ProductMainManager'}"
           >
             Produk
@@ -33,18 +32,19 @@
           <b-dropdown-item
             :to="{name: 'PurchasingMainManager'}"
           >
-            Persediaan Produk
+            Produk Masuk
           </b-dropdown-item>
           <b-dropdown-item
             :to="{name: 'SaleMainManager'}"
           >
-            Persediaan Produk
+            Produk Keluar
           </b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item-dropdown text="Laporan" right>
-          <b-dropdown-item href="#">Penjualan</b-dropdown-item>
+          <b-dropdown-item :to="{name: 'ReportSaleManager'}">Penjualan By Produk</b-dropdown-item>
+          <b-dropdown-item href="#">Penjualan By Pelanggan</b-dropdown-item>
           <b-dropdown-item href="#">Omzet</b-dropdown-item>
-          <b-dropdown-item href="#">Stok Produk</b-dropdown-item>
+          <b-dropdown-item href="#">Stok Minimum</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto" >

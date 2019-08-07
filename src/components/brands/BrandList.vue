@@ -1,38 +1,40 @@
 <template>
-  <div class="card bg-light border-light">
-    <div class="card-body" v-if="propBrands.length > 0">
-      <small class="text-muted">Daftar Brand</small>
-      <!-- Search -->
-      <KatelySearch class="mt-2" :propPlaceholder="'Cari Brand'" @search="brandListSearch" />
-      <table class="table table-borderless table-striped">
-        <thead>
-          <tr class="">
-            <th>ID</th>
-            <th>Nama Brand</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            style="cursor: pointer;"
-            :class="{'table-primary': b === brand}"
-            v-for="b in propBrands"
-            :key="b.id"
-            @click="brandRetrieve(b)"
-          >
-            <td>{{ b.id }}</td>
-            <td>{{ b.name }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- Pagination -->
-      <KatelyPagination
-        :propPagination="propPagination"
-        @paginate="paginate"
-      />
-    </div>
-    <div class="card" v-if="propBrands.length <= 0">
-      <div class="card-body">
-        Tidak ada data yang ditampilkan! <a @click="reload" href="javascript:void(1)">Muat ulang</a>
+  <div class="mb-4">
+    <div class="card">
+      <div class="card-body" v-if="propBrands.length > 0">
+        <h5 class="card-title">Daftar Brand</h5>
+        <!-- Search -->
+        <KatelySearch class="mt-2" :propPlaceholder="'Cari Brand'" @search="brandListSearch" />
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Brand</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              style="cursor: pointer;"
+              :class="{'table-primary': b === brand}"
+              v-for="b in propBrands"
+              :key="b.id"
+              @click="brandRetrieve(b)"
+            >
+              <td>{{ b.id }}</td>
+              <td>{{ b.name }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Pagination -->
+        <KatelyPagination
+          :propPagination="propPagination"
+          @paginate="paginate"
+        />
+      </div>
+      <div class="card" v-if="propBrands.length <= 0">
+        <div class="card-body">
+          Tidak ada data yang ditampilkan! <a @click="reload" href="javascript:void(1)">Muat ulang</a>
+        </div>
       </div>
     </div>
   </div>
