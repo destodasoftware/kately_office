@@ -2,12 +2,12 @@
   <KatelyBaseLayout>
     <div v-if="sale" slot="content" class="row mb-4 no-print">
       <div class="col-md-12">
-        <h4>Penjualan {{ sale.sale_number }} / {{ sale.pic }}</h4>
+        <h4>Kelola Penjualan <small class="text-muted">{{ sale.sale_number }}</small></h4>
       </div>
     </div>
     <div v-if="sale" slot="content" class="row mb-4">
       <div class="col-md-12">
-        <button v-b-modal.modal-SaleItemList class="btn btn-success">
+        <button v-b-modal.modal-SaleItemList class="btn btn-primary">
           Pilih Produk
         </button>
       </div>
@@ -25,15 +25,23 @@
           :propPagination="paginationSaleItem"
           @saleItemRetrieve="saleItemRetrieve"
           @saleItemDestroy="saleItemDestroy"
+          @saleItemListSearch="saleItemListSearch"
         />
-        <b-modal id="modal-SaleItemList" size="lg" scrollable title="Scrollable Content">
-          <div class="my-4">
-            <ProductList
-              :propPagination="paginationProduct"
-              :propProducts="products"
-              @productRetrieve="productRetrieve"
-            />
-          </div>
+        <b-modal
+          id="modal-SaleItemList"
+          size="lg"
+          header-bg-variant="primary"
+          header-text-variant="white"
+          hide-footer
+          scrollable
+          title="Pilih Produk"
+        >
+          <ProductList
+            :propPagination="paginationProduct"
+            :propProducts="products"
+            @productRetrieve="productRetrieve"
+            @productListSearch="productListSearch"
+          />
         </b-modal>
       </div>
       <!-- right -->
@@ -51,12 +59,15 @@
         <b-modal
           id="modal-CustomerList"
           scrollable
+          header-bg-variant="primary"
+          header-text-variant="light"
           hide-footer
-          title="Pelanggan"
+          title="Pilih Pelanggan"
           size="lg"
         >
           <div class="row mb-4">
             <div class="col-md-12">
+              <button v-b-modal.modal-CustomerCreate class="btn btn-primary">Pelanggan Baru</button>
               <CustomerCreate @customerCreate="customerCreate" />
             </div>
           </div>
@@ -71,17 +82,17 @@
             </div>
           </div>
         </b-modal>
-        <div v-if="!sale.shipping" class="card text-center mt-4">
+        <div v-if="!sale.shipping" class="card mb-4">
           <div class="card-body">
-            <h5 class="card-title text-primary">Pengiriman</h5>
-            <p class="card-text text-dark">
-              Dengan mengisi alamat yang dituju, Anda telah membantu kurir menemukan alamat pembeli
-              dan membantu pembeli untuk mendapatkan produknya.
+            <h5 class="card-title">Alamat Pengiriman</h5>
+            <p class="card-text">
+              Tambahkan alamat pengiriman dengan mengklik tombol di bawah.
             </p>
+            <button v-b-modal.modal-ShippingCreate class="btn btn-primary">Tambahkan Alamat</button>
             <shippingCreate @shippingCreate="shippingCreate" />
           </div>
         </div>
-        <shippingDetail
+        <ShippingDetail
           v-if="sale.shipping"
           :propShipping="shipping"
           @shippingUpdate="shippingUpdate"
@@ -367,7 +378,6 @@ export default {
     shippingDestroy (value) {
       this.httpInit()
       const url = `${process.env.ROOT_API}/office/shippings/${value.id}/`
-      value.sale = this.$routes.params.id
       return this.axios.delete(url, value)
         .then((response) => {
           this.shipping = undefined
@@ -402,12 +412,28 @@ export default {
       }
     },
     productListSearch (query) {
-      console.log(query)
+      this.list('products', query)
+        .then((response) => {
+          this.products = response.data.results
+          this.paginationProduct.next = response.data.next
+          this.paginationProduct.previous = response.data.previous
+          this.paginationProduct.count = response.data.count
+        })
     },
     saleItemList () {
       const query = {
         sale: this.sale.id
       }
+      return this.list('saleitems', query)
+        .then((response) => {
+          this.saleItems = response.data.results
+          this.paginationSaleItem.next = response.data.next
+          this.paginationSaleItem.previous = response.data.previous
+          this.paginationSaleItem.count = response.data.count
+        })
+    },
+    saleItemListSearch (query) {
+      query.sale = this.sale.id
       return this.list('saleitems', query)
         .then((response) => {
           this.saleItems = response.data.results
@@ -423,6 +449,7 @@ export default {
       this.update('saleitems', value.id, value)
         .then((response) => {
           this.saleItem = response.data
+          this.saleItemList()
         })
     },
     saleItemDestroy (value) {
@@ -431,7 +458,6 @@ export default {
           this.saleItemList()
         })
     }
-
   },
   created () {
     this.saleRetrieve().then(() => {

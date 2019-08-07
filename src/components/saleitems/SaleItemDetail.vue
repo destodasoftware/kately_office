@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div v-if="propSaleItem">
     <div v-if="saleItem" class="card mb-4">
       <div class="card-body">
-        <h4 class="card-title text-success">Detil Item</h4>
+        <h5 class="card-title">Detil Item Penjualan</h5>
         <div class="form-group">
-          <div class="text-success">{{ saleItem.product_name }}</div>
+          <label>Nama Produk</label>
+          <div class="text-primary">{{ saleItem.product_name }}</div>
         </div>
         <div class="form-group">
           <label>Harga</label>
@@ -15,8 +16,8 @@
           <input v-model="saleItem.quantity" type="text" class="form-control bg-light">
         </div>
         <div class="form-group">
-          <button @click="saleItemUpdate" class="btn btn-success">Simpan Perubahan</button>
-          <button @click="saleItemDestroy" class="btn btn-light text-muted">Hapus</button>
+          <button @click="saleItemUpdate" class="btn btn-primary">Simpan Perubahan</button>
+          <button @click="saleItemDestroy" class="btn btn-light">Hapus</button>
         </div>
       </div>
     </div>

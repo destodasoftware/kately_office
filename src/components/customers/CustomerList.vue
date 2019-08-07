@@ -6,7 +6,7 @@
         :propPlaceholder="'Cari Pelanggan'"
         @search="customerListSearch"
       />
-      <table class="table table-borderless">
+      <table class="table">
         <thead>
           <tr>
             <th>Kode Pelanggan</th>
@@ -20,7 +20,7 @@
             v-for="b in propCustomers"
             :key="b.id"
             style="cursor: pointer"
-            :class="{'table-info': b === customer }"
+            :class="{'table-primary': b === customer }"
             @click="customerRetrieve(b)"
           >
             <td>{{ b.customer_number }}</td>

@@ -1,29 +1,24 @@
 <template>
-  <span>
-    <b-button
-      v-b-modal.modal-1
-      variant="primary"
-    >
-      Pelanggan Baru
-    </b-button>
+  <div>
     <b-modal
-      id="modal-1"
+      id="modal-CustomerCreate"
       size="lg"
+      header-bg-variant="primary"
+      header-text-variant="light"
       scrollable
       title="Pelanggan Baru"
-      @ok="customerCreate"
     >
       <div class="row mb-2">
         <div class="col-md-6">
           <div class="form-group">
             <label>Nama Pelanggan</label>
-            <input v-model="customer.name" type="text" class="form-control" />
+            <input v-model="customer.name" type="text" class="form-control bg-light" />
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label>Email</label>
-            <input v-model="customer.email" type="email" class="form-control" />
+            <input v-model="customer.email" type="email" class="form-control bg-light" />
           </div>
         </div>
       </div>
@@ -31,7 +26,7 @@
         <div class="col-md-12">
           <div class="form-group">
             <label>Nomer Telepon</label>
-            <input v-model="customer.phone" type="text" class="form-control" />
+            <input v-model="customer.phone" type="text" class="form-control bg-light" />
           </div>
         </div>
       </div>
@@ -44,13 +39,13 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Regional/Negara</label>
-            <input v-model="customer.country" type="text" class="form-control" />
+            <input v-model="customer.country" type="text" class="form-control bg-light" />
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label>Kota</label>
-            <input v-model="customer.city" type="text" class="form-control" />
+            <input v-model="customer.city" type="text" class="form-control bg-light" />
           </div>
         </div>
       </div>
@@ -58,13 +53,13 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Propinsi</label>
-            <input v-model="customer.province" type="text" class="form-control" />
+            <input v-model="customer.province" type="text" class="form-control bg-light" />
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label>Zip Code</label>
-            <input v-model="customer.zip_code" type="text" class="form-control" />
+            <input v-model="customer.zip_code" type="text" class="form-control bg-light" />
           </div>
         </div>
       </div>
@@ -73,7 +68,7 @@
           <div class="form-group">
             <label>Alamat</label>
             <textarea
-              class="form-control"
+              class="form-control bg-light"
               cols="30"
               rows="10"
               v-model="customer.address"
@@ -81,8 +76,11 @@
           </div>
         </div>
       </div>
+      <div slot="modal-footer">
+        <button @click="customerCreate" class="btn btn-primary">Simpan</button>
+      </div>
     </b-modal>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -108,6 +106,7 @@ export default {
     customerCreate () {
       const value = Object.assign({}, this.customer)
       value.customer_number = this.skuGen()
+      this.$bvModal.hide('modal-CustomerCreate')
       this.$emit('customerCreate', value)
     },
     skuGen () {

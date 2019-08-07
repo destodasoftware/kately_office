@@ -1,16 +1,15 @@
 <template>
-  <div>
+  <div v-if="propSale">
     <div v-if="sale" class="card mb-4">
       <div class="card-body">
-        <h4 class="text-success card-title">Penjualan</h4>
+        <h5 class="card-title">Detil Penjualan</h5>
         <div class="form-group">
-          <label class="text-secondary">
-            {{ sale.sale_number }} <br>
-            <small>{{ sale.pic }}</small>
-          </label>
+          <label>Nomer Penjualan</label>
+          <input v-model="sale.sale_number" type="text" class="form-control bg-light" disabled />
         </div>
-        <div class="form-group no-print">
-          <label>Rp. {{ sale.total }} 10.000</label>
+        <div class="form-group">
+          <label>PIC</label>
+          <input v-model="sale.pic" type="text" class="form-control bg-light" disabled />
         </div>
         <div class="form-group no-print">
           <label>Status</label>
@@ -21,7 +20,12 @@
           </select>
         </div>
         <div class="form-group no-print">
-          <button class="btn btn-success">Simpan Perubahan</button>
+          <label>Total </label>
+          <div class="text-primary">Rp. {{ sale.total }}</div>
+        </div>
+        <div class="form-group no-print">
+          <button @click="saleUpdate" class="btn btn-primary">Simpan Perubahan</button>
+          <button @click="saleDestroy" class="btn btn-light">Hapus</button>
         </div>
       </div>
     </div>
@@ -54,12 +58,6 @@ export default {
     }
   },
   methods: {
-    edit () {
-      this.sale = Object.assign({}, this.propSale)
-    },
-    abort () {
-      this.sale = undefined
-    },
     saleUpdate () {
       const value = Object.assign({}, this.sale)
       this.$emit('saleUpdate', value)

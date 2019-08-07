@@ -2,13 +2,13 @@
   <div class="mb-4">
     <div v-if="!propCustomerId" class="card">
       <div class="card-body">
-        <h4 class="card-title text-success">Info Pelanggan</h4>
-        <p>Ups, Tidak ada yang bisa ditampilkan!</p>
+        <h5 class="card-title">Pelanggan</h5>
+        <p class="card-text">Anda belum memilih pelanggan</p>
       </div>
     </div>
     <div v-if="propCustomerId" class="card">
       <div v-if="customer" class="card-body">
-        <h4 class="card-title text-success">Info Pelanggan</h4>
+        <h5 class="card-title">Pelanggan</h5>
         <p class="card-text">{{ customer.email }}</p>
       </div>
     </div>

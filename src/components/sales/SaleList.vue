@@ -1,9 +1,9 @@
 <template>
-  <div class="card bg-light bg-light">
+  <div class="card">
     <div class="card-body" v-if="propSales.length > 0">
       <!-- Search -->
       <KatelySearch :propPlaceholder="'Cari Transaksi'" @search="saleListSearch" />
-      <table class="table table-borderless table-striped">
+      <table class="table">
         <thead>
           <tr>
             <th>Nomer Penjualan</th>
@@ -17,13 +17,13 @@
         <tbody>
           <tr
             style="cursor: pointer;"
-            :class="{'table-info': b === sale}"
+            :class="{'table-primary': b === sale}"
             v-for="b in propSales"
             :key="b.id"
             @click="saleRetrieve(b)"
           >
             <td>{{ b.sale_number }}</td>
-            <td>{{ b.create }}</td>
+            <td>{{ b.sale_date }}</td>
             <td>{{ b.brand_name }}</td>
             <td>{{ b.total }}</td>
             <td>{{ b.pic }}</td>

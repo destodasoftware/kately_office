@@ -2,11 +2,12 @@
   <KatelyBaseLayout>
     <div slot="content" class="row mb-4">
       <div class="col-md-12">
-        <h1 class="display-4">Penjualan Produk</h1>
+        <h4>Kelola Penjualan</h4>
       </div>
     </div>
     <div slot="content" class="row mb-4">
       <div class="col-md-12">
+        <button v-b-modal.modal-SaleCreate class="btn btn-primary">Penjualan Baru</button>
         <SaleCreate @saleCreate="saleCreate" />
       </div>
     </div>

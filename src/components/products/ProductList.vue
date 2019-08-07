@@ -11,6 +11,7 @@
               <th>Inventori</th>
               <th>Jenis</th>
               <th>Brand</th>
+              <th>Harga</th>
             </tr>
           </thead>
           <tbody>
@@ -31,6 +32,7 @@
               </td>
               <td>{{ b.category_name }}</td>
               <td>{{ b.brand_name }}</td>
+              <td>{{ b.price }}</td>
             </tr>
           </tbody>
         </table>

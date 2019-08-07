@@ -1,10 +1,10 @@
 <template>
   <div class="card mb-4">
     <div class="card-body" v-if="propSaleItems.length > 0">
-      <h4 class="card-title text-success">Item Pembelian</h4>
+      <h5 class="card-title">Daftar Item Pembelian</h5>
       <!-- Search -->
       <KatelySearch :propPlaceholder="'Cari Item'" @search="saleItemListSearch" />
-      <table class="table table-borderless">
+      <table class="table">
         <thead>
           <tr>
             <th>Nama</th>

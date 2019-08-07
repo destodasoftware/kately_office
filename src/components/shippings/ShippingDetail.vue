@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div v-if="propShipping">
     <div v-if="shipping" class="card mb-4">
       <div class="card-body">
-        <h4 class="card-title text-success">Alamat Pengiriman</h4>
+        <h5 class="card-title">Alamat Pengiriman</h5>
         <div class="form-group">
           <label>Negara/Region</label>
           <input
@@ -51,7 +51,7 @@
           >
         </div>
         <div class="form-group">
-          <button @click="shippingUpdate" class="btn btn-success">Simpan Perubahan</button>
+          <button @click="shippingUpdate" class="btn btn-primary">Simpan Perubahan</button>
           <button @click="shippingDestroy" class="btn btn-light">Hapus</button>
         </div>
       </div>

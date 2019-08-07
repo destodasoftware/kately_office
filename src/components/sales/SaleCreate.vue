@@ -1,5 +1,20 @@
 <template>
-  <button @click="saleCreate" class="btn btn-primary">Penjualan Baru</button>
+  <div>
+    <b-modal
+      header-bg-variant="primary"
+      header-text-variant="white"
+      id="modal-SaleCreate"
+      title="Penjualan Baru"
+    >
+      <div class="form-group">
+        <label>Tanggal Penjualan</label>
+        <input type="date" class="form-control" v-model="sale.sale_date">
+      </div>
+      <div slot="modal-footer">
+        <button class="btn btn-primary" @click="saleCreate">Simpan</button>
+      </div>
+    </b-modal>
+  </div>
 </template>
 
 <script>
@@ -12,7 +27,8 @@ export default {
         user: undefined,
         total: 0,
         brand: undefined,
-        status: 'open'
+        status: 'open',
+        sale_date: ''
       }
     }
   },
