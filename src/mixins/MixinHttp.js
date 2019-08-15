@@ -13,6 +13,14 @@ export default {
         }
       }
     },
+    httpCSV () {
+      const token = localStorage.getItem('token')
+      this.axios.defaults.headers.common = {
+        'Authorization': `Token ${token}`,
+        'Content-Disposition': 'attachment;filename=report.xls',
+        'Content-Type': 'application/octet-stream'
+      }
+    },
     list (app, query) {
       this.httpInit()
       return this.axios.get(`${process.env.ROOT_API}/office/${app}/`, {params: query})

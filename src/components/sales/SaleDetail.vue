@@ -23,7 +23,7 @@
           <label>Total </label>
           <div class="text-primary">Rp. {{ sale.total }}</div>
         </div>
-        <div class="form-group no-print">
+        <div v-if="!hideAction" class="form-group no-print">
           <button @click="saleUpdate" class="btn btn-primary">Simpan Perubahan</button>
           <button @click="saleDestroy" class="btn btn-light">Hapus</button>
         </div>
@@ -36,7 +36,8 @@
 export default {
   name: 'SaleDetail',
   props: {
-    propSale: Object
+    propSale: Object,
+    hideAction: Boolean
   },
   data () {
     return {

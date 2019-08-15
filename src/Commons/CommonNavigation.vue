@@ -2,7 +2,7 @@
   <div class="">
     <b-navbar toggleable="sm" type="dark" variant="primary">
       <b-navbar-brand class="text-white" :to="{name: 'DashboardMainManager'}">
-        <KatelyLoadingInterceptor />
+        <common-interceptor />
           Kately
           <span class="badge badge-pill badge-light text-primary">
             Sistem Ritel
@@ -63,10 +63,11 @@
 </template>
 
 <script>
-import KatelyLoadingInterceptor from '@/commons/KatelyLoadingInterceptor'
+import CommonInterceptor from '@/Commons/CommonInterceptor'
+
 export default {
   components: {
-    KatelyLoadingInterceptor
+    'common-interceptor': CommonInterceptor
   }
 }
 </script>

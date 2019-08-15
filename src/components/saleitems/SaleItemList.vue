@@ -10,6 +10,7 @@
             <th>Nama</th>
             <th>Harga</th>
             <th>Jumlah</th>
+            <th>Diskon</th>
             <th>Total</th>
           </tr>
         </thead>
@@ -27,7 +28,11 @@
             </td>
             <td>{{ b.price }}</td>
             <td>{{ b.quantity }}</td>
-            <td>{{ b.quantity * b.price }}</td>
+            <td>
+              <span v-if="!b.is_percent">Rp. </span>
+              {{ b.discount }} <span v-if="b.is_percent">%</span>
+            </td>
+            <td>{{ b.total }}</td>
           </tr>
         </tbody>
       </table>

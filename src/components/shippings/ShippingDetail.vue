@@ -50,6 +50,34 @@
             placeholder="Masukan postal code / seperti '11620'"
           >
         </div>
+        <hr>
+        <div class="form-group">
+          <label>Nomer Resi</label>
+          <input
+            type="text"
+            v-model="shipping.tracking_number"
+            class="form-control bg-light"
+            placeholder="Masukan nomer resi"
+          >
+        </div>
+        <div class="form-group">
+          <label>Layanan Pengiriman</label>
+          <input
+            type="text"
+            v-model="shipping.courier_service"
+            class="form-control bg-light"
+            placeholder="Masukan layanan pengiriman"
+          >
+        </div>
+        <div class="form-group">
+          <label>Biaya Pengiriman</label>
+          <input
+            type="text"
+            v-model="shipping.cost"
+            class="form-control bg-light"
+            placeholder="Masukan biaya pengiriman"
+          >
+        </div>
         <div class="form-group">
           <button @click="shippingUpdate" class="btn btn-primary">Simpan Perubahan</button>
           <button @click="shippingDestroy" class="btn btn-light">Hapus</button>

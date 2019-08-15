@@ -16,6 +16,18 @@
           <input v-model="saleItem.quantity" type="text" class="form-control bg-light">
         </div>
         <div class="form-group">
+          <div class="form-check">
+            <input v-model="saleItem.is_percent" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+            <label class="form-check-label" for="defaultCheck1">
+              % persen
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Diskon</label>
+          <input v-model="saleItem.discount" type="text" class="form-control bg-light">
+        </div>
+        <div class="form-group">
           <button @click="saleItemUpdate" class="btn btn-primary">Simpan Perubahan</button>
           <button @click="saleItemDestroy" class="btn btn-light">Hapus</button>
         </div>

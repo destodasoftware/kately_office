@@ -4,7 +4,8 @@ import AboutMainManager from '@/apps/about/AboutMainManager'
 import UserLoginManager from '@/apps/users/UserLoginManager'
 import DashboardMainManager from '@/apps/dashboards/DashboardMainManager'
 import CategoryMainManager from '@/apps/categories/CategoryMainManager'
-import BrandMainManager from '@/apps/brands/BrandMainManager'
+// import BrandMainManager from '@/apps/brands/BrandMainManager'
+import BrandMainManager from '@/Brands/Apps/BrandMainManager'
 import ArticleMainManager from '@/apps/articles/ArticleMainManager'
 import ArticleComposeManager from '@/apps/articles/ArticleComposeManager'
 import ProductMainManager from '@/apps/products/ProductMainManager'
@@ -14,7 +15,9 @@ import PurchasingMainManager from '@/apps/purchasing/PurchasingMainManager'
 import PurchaseComposeManager from '@/apps/purchasing/PurchaseComposeManager'
 import SaleMainManager from '@/apps/sales/SaleMainManager'
 import SaleComposeManager from '@/apps/sales/SaleComposeManager'
-import ReportSaleManager from '@/apps/reportings/ReportSaleManager'
+// import ReportSaleManager from '@/apps/reportings/ReportSaleManager'
+import SaleReportMainManager from '@/SaleReports/Apps/SaleReportMainManager'
+import CustomerMainManager from '@/Customers/Apps/CustomerMainManager'
 
 Vue.use(Router)
 
@@ -130,9 +133,17 @@ let router = new Router({
       }
     },
     {
-      path: '/report/sale',
-      name: 'ReportSaleManager',
-      component: ReportSaleManager,
+      path: '/SaleReportMainManager',
+      name: 'SaleReportMainManager',
+      component: SaleReportMainManager,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/CustomerMainManager',
+      name: 'CustomerMainManager',
+      component: CustomerMainManager,
       meta: {
         requiresAuth: true
       }

@@ -7,19 +7,48 @@
     </div>
     <div v-if="sale" slot="content" class="row mb-4">
       <div class="col-md-12">
-        <button v-b-modal.modal-SaleItemList class="btn btn-primary">
+        <button v-if="sale.brand" v-b-modal.modal-SaleItemList class="btn btn-primary">
           Pilih Produk
         </button>
+        <button v-if="!sale.brand" class="btn btn-secondary">
+          Pilih Produk
+        </button>
+        <button v-if="sale" v-b-modal.modal-SaleSendMail class="btn btn-outline-primary">Send Email</button>
+        <SaleSendMail v-if="sale" :propSale="sale" @saleSendMail="saleSendMail" />
       </div>
     </div>
     <div v-if="sale" slot="content" class="row mb-4">
       <!-- left -->
       <div class="col-md-8">
-        <SaleItemDetail
-          :propSaleItem="saleItem"
-          @saleItemUpdate="saleItemUpdate"
-          @saleItemDestroy="saleItemDestroy"
+        <BrandInfo
+          v-if="sale"
+          v-b-modal.modal-BrandList
+          :propBrandId="sale.brand"
         />
+        <b-modal
+          id="modal-BrandList"
+          scrollable
+          ref="modal-BrandList"
+          hide-footer
+          title="Brand/Client"
+          size="lg"
+        >
+          <div class="row mb-4">
+            <div class="col-md-12">
+              <!-- <CustomerCreate @customerCreate="customerCreate" /> -->
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-md-12">
+              <BrandList
+                :propBrands="brands"
+                :propPagination="paginationBrand"
+                @brandRetrieve="brandRetrieve"
+                @brandListSearch="brandListSearch"
+              />
+            </div>
+          </div>
+        </b-modal>
         <SaleItemList
           :propSaleItems="saleItems"
           :propPagination="paginationSaleItem"
@@ -27,9 +56,15 @@
           @saleItemDestroy="saleItemDestroy"
           @saleItemListSearch="saleItemListSearch"
         />
+        <SaleItemDetail
+          :propSaleItem="saleItem"
+          @saleItemUpdate="saleItemUpdate"
+          @saleItemDestroy="saleItemDestroy"
+        />
         <b-modal
           id="modal-SaleItemList"
           size="lg"
+          ref="modal-SaleItemList"
           header-bg-variant="primary"
           header-text-variant="white"
           hide-footer
@@ -43,14 +78,6 @@
             @productListSearch="productListSearch"
           />
         </b-modal>
-      </div>
-      <!-- right -->
-      <div class="col-md-4">
-        <SaleDetail
-          :propSale="sale"
-          @saleUpdate="saleUpdate"
-          @saleDestroy="saleDestroy"
-        />
         <CustomerInfo
           v-b-modal.modal-CustomerList
           v-if="sale"
@@ -60,6 +87,7 @@
           id="modal-CustomerList"
           scrollable
           header-bg-variant="primary"
+          ref="modal-CustomerList"
           header-text-variant="light"
           hide-footer
           title="Pilih Pelanggan"
@@ -98,34 +126,19 @@
           @shippingUpdate="shippingUpdate"
           @shippingDestroy="shippingDestroy"
         />
-        <BrandInfo
-          v-if="sale"
-          v-b-modal.modal-BrandList
-          :propBrandId="sale.brand"
+      </div>
+      <!-- right -->
+      <div class="col-md-4">
+        <SaleDetail
+          :propSale="sale"
+          :hideAction="true"
+          @saleUpdate="saleUpdate"
+          @saleDestroy="saleDestroy"
         />
-        <b-modal
-          id="modal-BrandList"
-          scrollable
-          hide-footer
-          title="Brand/Client"
-          size="lg"
-        >
-          <div class="row mb-4">
-            <div class="col-md-12">
-              <!-- <CustomerCreate @customerCreate="customerCreate" /> -->
-            </div>
-          </div>
-          <div class="row mb-4">
-            <div class="col-md-12">
-              <BrandList
-                :propBrands="brands"
-                :propPagination="paginationBrand"
-                @brandRetrieve="brandRetrieve"
-                @brandListSearch="brandListSearch"
-              />
-            </div>
-          </div>
-        </b-modal>
+        <PaymentDetail
+          :propPayment="payment"
+          @paymentUpdate="paymentUpdate"
+        />
       </div>
     </div>
     <div v-if="sale" slot="content" class="row mb-4">
@@ -149,6 +162,8 @@ import ShippingDetail from '@/components/shippings/ShippingDetail'
 import ProductList from '@/components/products/ProductList'
 import SaleItemList from '@/components/saleitems/SaleItemList'
 import SaleItemDetail from '@/components/saleitems/SaleItemDetail'
+import PaymentDetail from '@/components/payments/PaymentDetail'
+import SaleSendMail from '@/components/sales/SaleSendMail'
 
 export default {
   name: 'SaleComposeManager',
@@ -168,7 +183,9 @@ export default {
     ShippingDetail,
     ProductList,
     SaleItemList,
-    SaleItemDetail
+    SaleItemDetail,
+    PaymentDetail,
+    SaleSendMail
   },
   data () {
     return {
@@ -200,7 +217,8 @@ export default {
         previous: undefined,
         count: 0
       },
-      saleItem: undefined
+      saleItem: undefined,
+      payment: undefined
     }
   },
   methods: {
@@ -217,6 +235,9 @@ export default {
         .catch((error) => {
           this.$bvToast.toast(error.message, error.config.option)
         })
+    },
+    saleSendMail () {
+      this.$refs['modal-SaleSendMail'].hide()
     },
     shippingRetrieve () {
       // This method invoke without dependency of
@@ -302,6 +323,8 @@ export default {
       } else {
         this.shippingCreate(payload)
       }
+
+      this.$refs['modal-CustomerList'].hide()
     },
     customerListSearch (query) {
       this.httpInit()
@@ -318,9 +341,13 @@ export default {
         })
     },
     brandRetrieve (value) {
-      this.brand = value
-      this.sale.brand = value.id
-      this.saleUpdate(this.sale)
+      if (!this.sale.brand) {
+        this.brand = value
+        this.sale.brand = value.id
+        this.saleUpdate(this.sale)
+        this.productList()
+      }
+      this.$refs['modal-BrandList'].hide()
     },
     brandList () {
       this.httpInit()
@@ -358,6 +385,7 @@ export default {
         .then((response) => {
           this.shipping = response.data
           this.saleRetrieve()
+          this.paymentRetrieve()
         })
         .catch((error) => {
           this.$bvToast.toast(error.message, error.config.option)
@@ -370,6 +398,7 @@ export default {
         .then((response) => {
           this.shipping = response.data
           this.saleRetrieve()
+          this.paymentRetrieve()
         })
         .catch((error) => {
           this.$bvToast.toast(error.message, error.config.option)
@@ -388,17 +417,23 @@ export default {
         })
     },
     productList () {
-      return this.list('products', {only_root: true})
-        .then((response) => {
-          this.products = response.data.results
-          this.paginationProduct.next = response.data.next
-          this.paginationProduct.previous = response.data.previous
-          this.paginationProduct.count = response.data.count
-        })
+      console.log(this.sale.brand)
+      if (this.sale.brand) {
+        const query = {
+          brand: this.sale.brand
+        }
+        return this.list('products', query)
+          .then((response) => {
+            this.products = response.data.results
+            this.paginationProduct.next = response.data.next
+            this.paginationProduct.previous = response.data.previous
+            this.paginationProduct.count = response.data.count
+          })
+      }
     },
     productRetrieve (value) {
       this.product = value
-      if (!value.number_variation) {
+      if (value.no_child) {
         this.create('saleitems', {
           product: value.id,
           sale: this.sale.id,
@@ -410,15 +445,19 @@ export default {
             this.saleItem = response.data
           })
       }
+      this.$refs['modal-SaleItemList'].hide()
     },
     productListSearch (query) {
-      this.list('products', query)
-        .then((response) => {
-          this.products = response.data.results
-          this.paginationProduct.next = response.data.next
-          this.paginationProduct.previous = response.data.previous
-          this.paginationProduct.count = response.data.count
-        })
+      if (this.brand) {
+        query.brand = this.brand.id
+        this.list('products', query)
+          .then((response) => {
+            this.products = response.data.results
+            this.paginationProduct.next = response.data.next
+            this.paginationProduct.previous = response.data.previous
+            this.paginationProduct.count = response.data.count
+          })
+      }
     },
     saleItemList () {
       const query = {
@@ -448,8 +487,10 @@ export default {
     saleItemUpdate (value) {
       this.update('saleitems', value.id, value)
         .then((response) => {
-          this.saleItem = response.data
+          this.saleItem = undefined
           this.saleItemList()
+          this.paymentRetrieve()
+          this.saleRetrieve()
         })
     },
     saleItemDestroy (value) {
@@ -457,16 +498,30 @@ export default {
         .then((response) => {
           this.saleItemList()
         })
+    },
+    paymentRetrieve () {
+      this.get('payments', this.sale.payment)
+        .then((response) => {
+          this.payment = response.data
+        })
+    },
+    paymentUpdate (value) {
+      this.update('payments', value.id, value)
+        .then((response) => {
+          this.payment = response.data
+          this.saleRetrieve()
+        })
     }
   },
   created () {
     this.saleRetrieve().then(() => {
+      this.paymentRetrieve()
       this.shippingRetrieve()
       this.saleItemList()
+      this.brandList()
+      this.customerList()
+      this.productList()
     })
-    this.customerList()
-    this.brandList()
-    this.productList()
   }
 }
 </script>

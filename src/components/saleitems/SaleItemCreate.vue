@@ -2,7 +2,6 @@
 <template>
 <div class="card">
   <div class="card-body">
-
     <button @click="saleCreate" class="btn btn-primary">Penjualan Baru</button>
   </div>
 

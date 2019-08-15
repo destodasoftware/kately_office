@@ -7,10 +7,14 @@
     </div>
     <div slot="content" class="row mb-4 no-print">
       <div class="col-md-12">
-        <ReportSaleItemList
-          :propReportSaleItems="reportSaleItems"
-          :propPagination="paginationReportSaleItems"
-          @reportSaleItemListSearch="reportSaleItemListSearch"
+        <SaleReportFilter @saleReportFilter="saleReportFilter" />
+      </div>
+    </div>
+    <div slot="content" class="row mb-4 no-print">
+      <div class="col-md-12">
+        <SaleReport
+          :propSaleReports="saleReports"
+          :propPagination="paginationSaleReport"
         />
       </div>
     </div>
@@ -20,67 +24,30 @@
 <script>
 import KatelyBaseLayout from '@/commons/KatelyBaseLayout'
 import MixinHttp from '@/mixins/MixinHttp'
-import ReportSaleItemList from '@/components/reportsaleitems/ReportSaleItemList'
-import ReportSaleItemSummary from '@/components/reportsaleitems/ReportSaleItemSummary'
+import MixinSaleReports from '@/mixins/MixinSaleReports'
+import SaleReport from '@/components/sales/SaleReport'
+import SaleReportFilter from '@/components/sales/helpers/SaleReportFilter'
 
 export default {
   name: 'ReportSaleManager',
   components: {
     KatelyBaseLayout,
-    ReportSaleItemList,
-    ReportSaleItemSummary
+    SaleReport,
+    SaleReportFilter
   },
   mixins: [
-    MixinHttp
+    MixinHttp,
+    MixinSaleReports
   ],
-  data () {
-    return {
-      reportSaleItems: [],
-      paginationReportSaleItems: {
-        next: undefined,
-        previous: undefined,
-        count: 0
-      },
-      summary: undefined
-    }
-  },
   methods: {
-    reportSaleItemList () {
-      this.list('reportsaleitems')
-        .then((response) => {
-          this.reportSaleItems = response.data.results
-          this.paginationReportSaleItems.next = response.data.next
-          this.paginationReportSaleItems.previous = response.data.previous
-          this.paginationReportSaleItems.count = response.data.count
-        })
-    },
-    reportSaleItemRetrieve (value) {
-      this.reportSaleItem = value
-    },
-    reportSaleItemListSearch (query) {
-      this.list('reportsaleitems', query)
-        .then((response) => {
-          this.reportSaleItems = response.data.results
-          this.paginationReportSaleItems.next = response.data.next
-          this.paginationReportSaleItems.previous = response.data.previous
-          this.paginationReportSaleItems.count = response.data.count
-        })
-    },
-    reportSaleItemSummaryRetrieve () {
-      this.httpInit()
-      const url = `${process.env.ROOT_API}/office/reportsaleitems/summary/`
-      this.axios.get(url)
-        .then((response) => {
-          this.summary = response.data
-        })
-        .catch((error) => {
-          this.$bvToast.toast(error.message, error.config.option)
-        })
+    saleReportFilter (query) {
+      this.querySaleReport = query
+      this.saleReportList()
     }
   },
   mounted () {
-    this.reportSaleItemList()
-    this.reportSaleItemSummaryRetrieve()
+    this.httpInit()
+    this.saleReportList()
   }
 }
 </script>
