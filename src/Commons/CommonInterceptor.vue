@@ -10,8 +10,13 @@
 </template>
 
 <script>
+import HelperError from '@/Helpers/HelperError'
+
 export default {
   name: 'CommonInterceptor',
+  mixins: [
+    HelperError
+  ],
   data () {
     return {
       state: false
@@ -42,6 +47,7 @@ export default {
         setTimeout(() => { this.state = false }, 400)
         return response
       }, (error) => {
+        this.errorHandler(error)
         setTimeout(() => { this.state = false }, 400)
         const opt = {
           title: `Ups error code ${error.response.status}!`,

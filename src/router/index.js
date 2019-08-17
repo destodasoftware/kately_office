@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import AboutMainManager from '@/apps/about/AboutMainManager'
 import UserLoginManager from '@/apps/users/UserLoginManager'
 import DashboardMainManager from '@/apps/dashboards/DashboardMainManager'
-import CategoryMainManager from '@/apps/categories/CategoryMainManager'
+// import CategoryMainManager from '@/apps/categories/CategoryMainManager'
 // import BrandMainManager from '@/apps/brands/BrandMainManager'
 import BrandMainManager from '@/Brands/Apps/BrandMainManager'
 import ArticleMainManager from '@/apps/articles/ArticleMainManager'
@@ -18,6 +18,7 @@ import SaleComposeManager from '@/apps/sales/SaleComposeManager'
 // import ReportSaleManager from '@/apps/reportings/ReportSaleManager'
 import SaleReportMainManager from '@/SaleReports/Apps/SaleReportMainManager'
 import CustomerMainManager from '@/Customers/Apps/CustomerMainManager'
+import CategoryMainManager from '@/Categories/Apps/CategoryMainManager'
 
 Vue.use(Router)
 
