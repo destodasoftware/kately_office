@@ -22,7 +22,7 @@
           </tr>
         </tbody>
         <tbody v-if="customers.length <= 0">
-          <tr v-for="customer in customers" :key="customer.key">
+          <tr>
             <td colspan="4">No data</td>
           </tr>
         </tbody>

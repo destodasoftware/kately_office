@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
-        <label>Kata Kunci Pencarian</label>
+        <label>Nama Brand</label>
         <input @keypress.enter="onFilter" type="text" class="form-control" v-model="query.name">
       </div>
     </div>

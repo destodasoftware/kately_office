@@ -3,7 +3,7 @@
     <common-header>
       Kelola Kategori
     </common-header>
-    <!-- section -->
+    <!-- section-1 -->
     <div class="row mb-4">
       <div class="col-md-8">
         <button
@@ -45,7 +45,7 @@
         </button>
       </div>
     </div>
-    <!-- section -->
+    <!-- section-2 -->
     <div class="row mb-4">
       <div class="col-md-12">
         <div class="card">

@@ -1,118 +1,174 @@
 <template>
-  <KatelyBaseLayout>
-    <CommonHeader slot="content">
-      <span slot="title">Kelola Brand</span>
-    </CommonHeader>
-    <div slot="content" class="row mb-4">
-      <div class="col-md-12">
-        <button v-b-modal.modal-BrandCreate class="btn btn-primary">Brand Baru</button>
-        <button v-b-modal.modal-BrandDetail v-if="brand" class="btn btn-primary">Detail Brand {{ brand.name }}</button>
-        <button v-b-modal.modal-BrandDestroy v-if="brand" class="btn btn-danger">Hapus Brand</button>
+  <common-layout>
+    <common-header>
+      Kelola Brand
+    </common-header>
+    <!-- section-1 -->
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <button
+          class="btn btn-primary"
+          v-b-modal.modal-BrandCreate
+        >
+          Brand Baru
+        </button>
+        <button
+          v-if="brand"
+          class="btn btn-outline-primary"
+          v-b-modal.modal-BrandDetail
+        >
+          Informasi Brand
+        </button>
+        <button
+          v-if="brand"
+          class="btn btn-outline-dark"
+          v-b-modal.modal-BrandDestroy
+        >
+          Hapus Brand
+        </button>
+      </div>
+      <div class="col-md-4">
+        <b-pagination
+          class="float-right"
+          v-model="queryBrand.page"
+          :total-rows="paginationBrand.count"
+          @change="onPaginateBrand"
+          :per-page="20"
+          aria-controls="my-table"
+        >
+        </b-pagination>
+        <button
+          class="btn btn-primary float-right ml-2 mr-2"
+          v-b-modal.modal-BrandFilter
+        >
+          Filter
+        </button>
       </div>
     </div>
-    <div slot="content" class="row mb-4">
+    <!-- section-2 -->
+    <div class="row mb-4">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-body">
-            <BrandFilter @onFilter="onFilterBrand" />
-          </div>
+          <brand-list
+            @onSelect="onSelectBrand"
+            :brands="brands"
+          />
         </div>
       </div>
+      <b-modal
+        hide-footer
+        id="modal-BrandCreate"
+        title="Buat Brand Baru"
+        size="lg"
+        ref="modal-BrandCreate"
+        scrollable
+      >
+        <brand-create @onCreate="onCreateBrand" />
+      </b-modal>
+      <b-modal
+        hide-footer
+        id="modal-BrandDetail"
+        title="Informasi Brand"
+        size="lg"
+        ref="modal-BrandDetail"
+        scrollable
+      >
+        <brand-detail
+          :brand="brand"
+          @onUpdate="onUpdateBrand"
+        />
+      </b-modal>
+      <b-modal
+        hide-footer
+        id="modal-BrandDestroy"
+        title="Hapus Brand"
+        size="lg"
+        ref="modal-BrandDestroy"
+        scrollable
+      >
+        <brand-destroy
+          :brand="brand"
+          @onDestroy="onDestroyBrand"
+        />
+      </b-modal>
+      <b-modal
+        hide-footer
+        id="modal-BrandFilter"
+        title="Cari Brand"
+        ref="modal-BrandFilter"
+        scrollable
+      >
+        <brand-filter
+          @onFilter="onFilterBrand"
+        />
+      </b-modal>
     </div>
-    <div slot="content" class="row mb-4">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body">
-            <BrandList :brands="brands" @onSelect="onSelectBrand" />
-          </div>
-        </div>
-      </div>
-    </div>
-    <b-modal
-      hide-footer
-      ref="modal-BrandCreate"
-      slot="content"
-      id="modal-BrandCreate"
-      title="Buat Brand"
-    >
-      <BrandCreate @onCreate="onCreateBrand" />
-    </b-modal>
-    <b-modal
-      v-if="brand"
-      hide-footer
-      ref="modal-BrandDetail"
-      slot="content"
-      id="modal-BrandDetail"
-      title="Ubah Brand"
-    >
-      <BrandDetail :brand="brand" @onUpdate="onUpdateBrand" />
-    </b-modal>
-    <b-modal
-      v-if="brand"
-      hide-footer
-      ref="modal-BrandDestroy"
-      slot="content"
-      id="modal-BrandDestroy"
-      title="Ubah Brand"
-    >
-      <BrandDestroy :brand="brand" @onDestroy="onDestroyBrand" />
-    </b-modal>
-  </KatelyBaseLayout>
+  </common-layout>
 </template>
 
 <script>
-import MixinHttp from '@/mixins/MixinHttp'
-import KatelyBaseLayout from '@/commons/KatelyBaseLayout'
+import CommonLayout from '@/Commons/CommonLayout'
 import CommonHeader from '@/Commons/CommonHeader'
+import MixinHttp from '@/mixins/MixinHttp'
+import HelperError from '@/Helpers/HelperError'
 
 import BrandService from '@/Brands/BrandService'
-import BrandList from '@/Brands/Components/BrandList'
 import BrandCreate from '@/Brands/Components/BrandCreate'
+import BrandList from '@/Brands/Components/BrandList'
 import BrandDetail from '@/Brands/Components/BrandDetail'
 import BrandDestroy from '@/Brands/Components/BrandDestroy'
 import BrandFilter from '@/Brands/Components/BrandFilter'
 
 export default {
   name: 'BrandMainManager',
+  components: {
+    'common-layout': CommonLayout,
+    'common-header': CommonHeader,
+    'brand-create': BrandCreate,
+    'brand-list': BrandList,
+    'brand-detail': BrandDetail,
+    'brand-destroy': BrandDestroy,
+    'brand-filter': BrandFilter
+  },
   mixins: [
     MixinHttp,
+    HelperError,
     BrandService
   ],
-  components: {
-    KatelyBaseLayout,
-    CommonHeader,
-    BrandList,
-    BrandCreate,
-    BrandDetail,
-    BrandDestroy,
-    BrandFilter
-  },
   methods: {
-    onCreateBrand (value) {
-      this.brand = value
+    onSelectBrand (brand) {
+      this.retrieveBrand(brand.id)
+    },
+    onCreateBrand (brand) {
+      this.brand = brand
       this.createBrand()
         .then((response) => {
-          this.listBrand()
+          this.$refs['modal-BrandCreate'].hide()
         })
     },
-    onSelectBrand (value) {
-      this.retrieveBrand(value.id)
-    },
-    onUpdateBrand (value) {
-      this.brand = value
-      this.updateBrand(value.id, this.brand)
+    onUpdateBrand (brand) {
+      this.brand = brand
+      this.updateBrand(brand.id)
         .then((response) => {
           this.listBrand()
+          this.$refs['modal-BrandDetail'].hide()
         })
     },
-    onDestroyBrand (value) {
-      this.destroyBrand(value.id)
+    onDestroyBrand (brand) {
+      this.destroyBrand(brand.id)
         .then((response) => {
           this.listBrand()
+          this.$refs['modal-BrandDestroy'].hide()
         })
     },
     onFilterBrand (query) {
-      this.queryBrand = query
+      this.queryBrand.name = query.name
+      this.$refs['modal-BrandFilter'].hide()
+      this.brand = undefined
+      this.listBrand()
+    },
+    onPaginateBrand (page) {
+      this.queryBrand.page = page
       this.listBrand()
     }
   },
@@ -122,3 +178,7 @@ export default {
   }
 }
 </script>
+
+<style>
+
+</style>
