@@ -22,6 +22,11 @@
             Brand
           </b-dropdown-item>
           <b-dropdown-item
+            :to="{name: 'CustomerMainManager'}"
+          >
+            Pelanggan
+          </b-dropdown-item>
+          <b-dropdown-item
             :to="{name: 'ProductMainManager'}"
           >
             Produk
