@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueBarcodeScanner from 'vue-barcode-scanner'
 import vueDebounce from 'vue-debounce'
+import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
 
 let options = {
   sound: true,
@@ -16,6 +17,9 @@ let options = {
 }
 
 Vue.config.productionTip = false
+
+// Global registration
+Vue.component('vue-bootstrap-typeahead', VueBootstrapTypeahead)
 
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)
