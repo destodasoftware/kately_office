@@ -1,33 +1,32 @@
 <template>
   <common-layout>
-    <common-header>
-      Kelola Kategori
-    </common-header>
-    <!-- section-1 -->
+    <common-header><font-awesome-icon icon="folder-open"/> Kategori</common-header>
     <div class="row mb-4">
-      <div class="col-md-8">
-        <button
-          class="btn btn-primary"
-          v-b-modal.modal-CategoryCreate
-        >
-          Kategori Baru
-        </button>
-        <button
-          v-if="category"
-          class="btn btn-outline-primary"
-          v-b-modal.modal-CategoryDetail
-        >
-          Informasi Kategori
-        </button>
-        <button
-          v-if="category"
-          class="btn btn-outline-dark"
-          v-b-modal.modal-CategoryDestroy
-        >
-          Hapus Kategori
-        </button>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <button class="btn btn-outline-primary" v-b-modal.modal-CategoryCreate>
+              <font-awesome-icon icon="plus-circle"/> Kategori Baru
+            </button>
+            <button class="btn btn-outline-primary" v-b-modal.modal-CategoryFilter>
+              <font-awesome-icon icon="filter"/> Filter
+            </button>
+            <button v-if="category" class="btn btn-outline-primary" v-b-modal.modal-CategoryDetail>
+              <font-awesome-icon icon="edit"/> Informasi Kategori
+            </button>
+            <button v-if="category" class="btn btn-link text-secondary" v-b-modal.modal-CategoryDestroy>
+              <font-awesome-icon icon="trash"/> Hapus Kategori
+            </button>
+          </div>
+          <category-list
+            @onSelect="onSelectCategory"
+            :categories="categories"
+          />
+        </div>
       </div>
-      <div class="col-md-4">
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-12">
         <b-pagination
           class="float-right"
           v-model="queryCategory.page"
@@ -37,23 +36,6 @@
           aria-controls="my-table"
         >
         </b-pagination>
-        <button
-          class="btn btn-primary float-right ml-2 mr-2"
-          v-b-modal.modal-CategoryFilter
-        >
-          Filter
-        </button>
-      </div>
-    </div>
-    <!-- section-2 -->
-    <div class="row mb-4">
-      <div class="col-md-12">
-        <div class="card">
-          <category-list
-            @onSelect="onSelectCategory"
-            :categories="categories"
-          />
-        </div>
       </div>
     </div>
     <!-- modal -->
@@ -117,7 +99,6 @@ import CategoryList from '@/Categories/Components/CategoryList'
 import CategoryDetail from '@/Categories/Components/CategoryDetail'
 import CategoryDestroy from '@/Categories/Components/CategoryDestroy'
 import CategoryFilter from '@/Categories/Components/CategoryFilter'
-// import CategoryReport from '@/Categories/Components/CategoryReport'
 
 export default {
   name: 'CategoryMainManager',

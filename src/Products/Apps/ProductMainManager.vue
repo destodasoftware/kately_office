@@ -1,82 +1,54 @@
 <template>
   <common-layout>
-    <common-header>Kelola Produk</common-header>
-    <!-- section 1 -->
-    <div class="row mb-4">
-      <div class="col-md-8">
-        <button
-          class="btn btn-primary"
-          v-b-modal.modal-ProductCreate
-        >
-          Produk Baru
-        </button>
-        <router-link :to="{
-            name: 'ProductComposeManager',
-            params: {
-              id: product.id
-            }
-          }"
-          v-if="product"
-          class="btn btn-outline-primary"
-        >
-          Informasi Produk
-        </router-link>
-      </div>
-      <div class="col-md-4">
-        <b-pagination
-          class="float-right"
-          v-model="queryProduct.page"
-          :total-rows="paginationProduct.count"
-          @change="onPaginateProduct"
-          :per-page="20"
-          aria-controls="my-table"
-        >
-        </b-pagination>
-        <button
-          class="btn btn-outline-primary float-right"
-          v-b-modal.modal-ProductFilter
-        >
-          Filter
-        </button>
-      </div>
-    </div>
-    <!-- section 2 -->
+    <common-header><font-awesome-icon icon="folder-open"/> Produk</common-header>
     <div class="row mb-4">
       <div class="col-md-12">
         <div class="card">
-          <product-list
-            @onSelect="onSelectProduct"
-            :products="products"
-          >
-          </product-list>
+          <div class="card-body">
+            <button class="btn btn-outline-primary" v-b-modal.modal-ProductCreate>
+              <font-awesome-icon icon="plus-circle"/> Produk Baru
+            </button>
+            <button class="btn btn-outline-primary" v-b-modal.modal-ProductFilter>
+              <font-awesome-icon icon="filter"/> Filter
+            </button>
+            <router-link :to="{ name: 'ProductComposeManager', params: { id: product.id } }" v-if="product" class="btn btn-outline-primary">
+              <font-awesome-icon icon="edit"/> Informasi Produk
+            </router-link>
+          </div>
+          <product-list @onSelect="onSelectProduct" :products="products" />
         </div>
-        <b-modal
-          hide-footer
-          id="modal-ProductCreate"
-          title="Buat Produk Baru"
-          size="lg"
-          ref="modal-ProductCreate"
-          scrollable
-        >
-          <product-create
-            @onCreate="onCreateProduct"
-          >
-          </product-create>
-        </b-modal>
-        <b-modal
-          hide-footer
-          id="modal-ProductFilter"
-          title="Filter Produk"
-          size="lg"
-          ref="modal-ProductFilter"
-          scrollable
-        >
-          <product-filter @onFilter="onFilterProduct">
-            <brand-typeahead @onHit="onHitBrand"></brand-typeahead>
-          </product-filter>
-        </b-modal>
       </div>
     </div>
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <b-pagination class="float-right" v-model="queryProduct.page" :total-rows="paginationProduct.count" @change="onPaginateProduct" :per-page="20" aria-controls="my-table"></b-pagination>
+      </div>
+    </div>
+    <b-modal
+      hide-footer
+      id="modal-ProductCreate"
+      title="Buat Produk Baru"
+      size="lg"
+      ref="modal-ProductCreate"
+      scrollable
+    >
+      <product-create
+        @onCreate="onCreateProduct"
+      >
+      </product-create>
+    </b-modal>
+    <b-modal
+      hide-footer
+      id="modal-ProductFilter"
+      title="Filter Produk"
+      size="lg"
+      ref="modal-ProductFilter"
+      scrollable
+    >
+      <product-filter @onFilter="onFilterProduct">
+        <brand-typeahead @onHit="onHitBrand"></brand-typeahead>
+      </product-filter>
+    </b-modal>
   </common-layout>
 </template>
 

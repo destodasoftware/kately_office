@@ -9,6 +9,20 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueBarcodeScanner from 'vue-barcode-scanner'
 import vueDebounce from 'vue-debounce'
 import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+import Datepicker from 'vuejs-datepicker'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+  faUserSecret,
+  faPlusCircle,
+  faFilter,
+  faEdit,
+  faBook,
+  faTrash,
+  faFolder,
+  faFolderOpen,
+  faFileExport
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 let options = {
   sound: true,
@@ -20,6 +34,20 @@ Vue.config.productionTip = false
 
 // Global registration
 Vue.component('vue-bootstrap-typeahead', VueBootstrapTypeahead)
+Vue.component('vue-datepicker', Datepicker)
+
+library.add([
+  faUserSecret,
+  faPlusCircle,
+  faFilter,
+  faEdit,
+  faTrash,
+  faFolder,
+  faFolderOpen,
+  faBook,
+  faFileExport
+])
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)

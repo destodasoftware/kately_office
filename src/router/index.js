@@ -9,15 +9,19 @@ import BrandMainManager from '@/Brands/Apps/BrandMainManager'
 import ArticleMainManager from '@/apps/articles/ArticleMainManager'
 import ArticleComposeManager from '@/apps/articles/ArticleComposeManager'
 import ProductBulkManager from '@/apps/products/ProductBulkManager'
-import PurchasingMainManager from '@/apps/purchasing/PurchasingMainManager'
-import PurchaseComposeManager from '@/apps/purchasing/PurchaseComposeManager'
-import SaleMainManager from '@/apps/sales/SaleMainManager'
-import SaleComposeManager from '@/apps/sales/SaleComposeManager'
+// import PurchasingMainManager from '@/apps/purchasing/PurchasingMainManager'
+// import PurchaseComposeManager from '@/apps/purchasing/PurchaseComposeManager'
+// import SaleMainManager from '@/apps/sales/SaleMainManager'
+// import SaleComposeManager from '@/apps/sales/SaleComposeManager'
 import SaleReportMainManager from '@/SaleReports/Apps/SaleReportMainManager'
 import CustomerMainManager from '@/Customers/Apps/CustomerMainManager'
 import CategoryMainManager from '@/Categories/Apps/CategoryMainManager'
 import ProductMainManager from '@/Products/Apps/ProductMainManager'
 import ProductComposeManager from '@/Products/Apps/ProductComposeManager'
+import PurchaseMainManager from '@/Purchases/Apps/PurchaseMainManager'
+import PurchaseComposeManager from '@/Purchases/Apps/PurchaseComposeManager'
+import SaleMainManager from '@/Sales/Apps/SaleMainManager'
+import SaleComposeManager from '@/Sales/Apps/SaleComposeManager'
 
 Vue.use(Router)
 
@@ -93,6 +97,14 @@ let router = new Router({
       }
     },
     {
+      path: '/PurchaseMainManager',
+      name: 'PurchaseMainManager',
+      component: PurchaseMainManager,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/ProductBulkManager',
       name: 'ProductBulkManager',
       component: ProductBulkManager,
@@ -101,9 +113,9 @@ let router = new Router({
       }
     },
     {
-      path: '/PurchasingMainManager',
-      name: 'PurchasingMainManager',
-      component: PurchasingMainManager,
+      path: '/PurchaseMainManager',
+      name: 'PurchaseMainManager',
+      component: PurchaseMainManager,
       meta: {
         requiresAuth: true
       }

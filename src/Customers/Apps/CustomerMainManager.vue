@@ -1,28 +1,30 @@
 <template>
   <common-layout>
-    <common-header>
-      Kelola Pelanggan
-    </common-header>
+    <common-header><font-awesome-icon icon="folder-open"/> Pelanggan</common-header>
     <div class="row mb-4">
-      <div class="col-md-8">
-        <button v-b-modal.modal-CustomerCreate class="btn btn-primary">Pelanggan Baru</button>
-        <button
-          v-if="customer"
-          v-b-modal.modal-CustomerDetail
-          class="btn btn-outline-primary"
-        >
-          Informasi Pelanggan
-        </button>
-        <button
-          v-if="customer"
-          v-b-modal.modal-CustomerDestroy
-          class="btn btn-outline-dark"
-        >
-          Hapus Pelanggan
-        </button>
-        <customer-report @onExport="onExportCustomer"></customer-report>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <button v-b-modal.modal-CustomerCreate class="btn btn-outline-primary">
+              <font-awesome-icon icon="plus-circle"/> Pelanggan Baru
+            </button>
+            <button v-b-modal.modal-CustomerFilter class="btn btn-outline-primary">
+              <font-awesome-icon icon="filter"/> Filter
+            </button>
+            <button v-if="customer" v-b-modal.modal-CustomerDetail class="btn btn-outline-primary">
+              <font-awesome-icon icon="edit"/> Informasi Pelanggan
+            </button>
+            <button v-if="customer" v-b-modal.modal-CustomerDestroy class="btn btn-link text-secondary">
+              <font-awesome-icon icon="trash"/> Hapus Pelanggan
+            </button>
+            <customer-report @onExport="onExportCustomer"></customer-report>
+          </div>
+          <customer-list @onSelect="onSelectCustomer" :customers="customers" />
+        </div>
       </div>
-      <div class="col-md-4">
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-12">
         <b-pagination
           class="float-right"
           v-model="queryCustomer.page"
@@ -32,18 +34,13 @@
           aria-controls="my-table"
         >
         </b-pagination>
-        <button
-          v-b-modal.modal-CustomerFilter
-          class="btn btn-outline-primary float-right ml-2 mr-2"
-        >
-          Filter
-        </button>
+
       </div>
     </div>
     <div class="row mb-4">
       <div class="col-md-12">
         <div class="card">
-          <customer-list @onSelect="onSelectCustomer" :customers="customers" />
+
         </div>
       </div>
     </div>

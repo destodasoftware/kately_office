@@ -1,108 +1,45 @@
 <template>
   <common-layout>
-    <common-header>
-      Kelola Brand
-    </common-header>
-    <!-- section-1 -->
-    <div class="row mb-4">
-      <div class="col-md-8">
-        <button
-          class="btn btn-primary"
-          v-b-modal.modal-BrandCreate
-        >
-          Brand Baru
-        </button>
-        <button
-          v-if="brand"
-          class="btn btn-outline-primary"
-          v-b-modal.modal-BrandDetail
-        >
-          Informasi Brand
-        </button>
-        <button
-          v-if="brand"
-          class="btn btn-outline-dark"
-          v-b-modal.modal-BrandDestroy
-        >
-          Hapus Brand
-        </button>
-      </div>
-      <div class="col-md-4">
-        <b-pagination
-          class="float-right"
-          v-model="queryBrand.page"
-          :total-rows="paginationBrand.count"
-          @change="onPaginateBrand"
-          :per-page="20"
-          aria-controls="my-table"
-        >
-        </b-pagination>
-        <button
-          class="btn btn-primary float-right ml-2 mr-2"
-          v-b-modal.modal-BrandFilter
-        >
-          Filter
-        </button>
-      </div>
-    </div>
-    <!-- section-2 -->
+    <common-header><font-awesome-icon icon="folder-open"/> Brand</common-header>
     <div class="row mb-4">
       <div class="col-md-12">
         <div class="card">
-          <brand-list
-            @onSelect="onSelectBrand"
-            :brands="brands"
-          />
+          <div class="card-body">
+            <button class="btn btn-outline-primary" v-b-modal.modal-BrandCreate>
+              <font-awesome-icon icon="plus-circle"/> Brand Baru
+            </button>
+            <button class="btn btn-outline-primary" v-b-modal.modal-BrandFilter>
+              <font-awesome-icon icon="filter"/> Filter
+            </button>
+            <button v-if="brand" class="btn btn-outline-primary" v-b-modal.modal-BrandDetail>
+              <font-awesome-icon icon="edit"/> Informasi Brand
+            </button>
+            <button v-if="brand" class="btn btn-link text-secondary" v-b-modal.modal-BrandDestroy>
+              <font-awesome-icon icon="trash"/> Hapus Brand
+            </button>
+          </div>
+          <brand-list @onSelect="onSelectBrand" :brands="brands"/>
         </div>
       </div>
-      <b-modal
-        hide-footer
-        id="modal-BrandCreate"
-        title="Buat Brand Baru"
-        size="lg"
-        ref="modal-BrandCreate"
-        scrollable
-      >
-        <brand-create @onCreate="onCreateBrand" />
-      </b-modal>
-      <b-modal
-        hide-footer
-        id="modal-BrandDetail"
-        title="Informasi Brand"
-        size="lg"
-        ref="modal-BrandDetail"
-        scrollable
-      >
-        <brand-detail
-          :brand="brand"
-          @onUpdate="onUpdateBrand"
-        />
-      </b-modal>
-      <b-modal
-        hide-footer
-        id="modal-BrandDestroy"
-        title="Hapus Brand"
-        size="lg"
-        ref="modal-BrandDestroy"
-        scrollable
-      >
-        <brand-destroy
-          :brand="brand"
-          @onDestroy="onDestroyBrand"
-        />
-      </b-modal>
-      <b-modal
-        hide-footer
-        id="modal-BrandFilter"
-        title="Cari Brand"
-        ref="modal-BrandFilter"
-        scrollable
-      >
-        <brand-filter
-          @onFilter="onFilterBrand"
-        />
-      </b-modal>
     </div>
+
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <b-pagination class="float-right" v-model="queryBrand.page" :total-rows="paginationBrand.count" @change="onPaginateBrand" :per-page="20" aria-controls="my-table"></b-pagination>
+      </div>
+    </div>
+    <b-modal hide-footer id="modal-BrandCreate" title="Buat Brand Baru" size="lg" ref="modal-BrandCreate" scrollable>
+      <brand-create @onCreate="onCreateBrand" />
+    </b-modal>
+    <b-modal hide-footer id="modal-BrandDetail" title="Informasi Brand" size="lg" ref="modal-BrandDetail" scrollable>
+      <brand-detail :brand="brand" @onUpdate="onUpdateBrand" />
+    </b-modal>
+    <b-modal hide-footer id="modal-BrandDestroy" title="Hapus Brand" size="lg" ref="modal-BrandDestroy" scrollable>
+      <brand-destroy :brand="brand" @onDestroy="onDestroyBrand" />
+    </b-modal>
+    <b-modal hide-footer id="modal-BrandFilter" title="Cari Brand" ref="modal-BrandFilter" scrollable>
+      <brand-filter @onFilter="onFilterBrand" />
+    </b-modal>
   </common-layout>
 </template>
 

@@ -1,6 +1,11 @@
 <template>
-  <b-dropdown id="dropdown-1" text="Export" class="m-md-2">
-    <b-dropdown-item @click="onExport">Export CSV</b-dropdown-item>
+  <b-dropdown variant="outline-primary" class="m-md-2">
+    <template slot="button-content">
+      <font-awesome-icon icon="file-export"/> Export
+    </template>
+    <b-dropdown-item @click="onExport">
+       Export CSV
+    </b-dropdown-item>
   </b-dropdown>
 </template>
 

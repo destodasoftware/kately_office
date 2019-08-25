@@ -3,7 +3,10 @@
     <common-navigation />
     <div class="container">
       <div class="row mt-3">
-        <div class="col-md-12">
+        <div class="col-md-2">
+          <common-menu/>
+        </div>
+        <div class="col-md-10">
           <slot></slot>
         </div>
       </div>
@@ -13,11 +16,12 @@
 
 <script>
 import CommonNavigation from '@/Commons/CommonNavigation'
-
+import CommonMenu from '@/Commons/CommonMenu'
 export default {
   name: 'CommonLayout',
   components: {
-    'common-navigation': CommonNavigation
+    'common-navigation': CommonNavigation,
+    'common-menu': CommonMenu
   }
 }
 </script>

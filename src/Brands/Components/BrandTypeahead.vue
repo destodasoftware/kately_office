@@ -6,7 +6,7 @@
       :data="brands"
       :serializer="item => item.name"
       @hit="onHit"
-      placeholder="Search GitHub Users"
+      placeholder="Cari Brand"
     />
   </div>
 </template>
