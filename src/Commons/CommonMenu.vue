@@ -57,6 +57,14 @@
           <strong><font-awesome-icon icon="folder"/> Penjualan</strong>
         </router-link>
       </li>
+      <li>
+        <router-link
+          :to="{name: 'SaleItemMainManager'}"
+          class="text-secondary"
+        >
+          <strong><font-awesome-icon icon="folder"/> Item Penjualan</strong>
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>

@@ -70,10 +70,7 @@
       ref="modal-CategoryDestroy"
       scrollabe
     >
-      <category-destroy
-        :category="category"
-        @onDestroy="onDestroyCategory"
-      />
+      <category-destroy :category="category" @onDestroy="onDestroyCategory" />
     </b-modal>
     <b-modal
       hide-footer

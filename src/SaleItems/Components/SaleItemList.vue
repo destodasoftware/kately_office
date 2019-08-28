@@ -4,6 +4,7 @@
       <table class="table">
         <thead>
           <tr>
+            <th>Nomer Penjualan</th>
             <th>Nama Produk</th>
             <th>Harga</th>
             <th>Jumlah</th>
@@ -18,6 +19,7 @@
             v-for="saleItem in saleItems"
             :key="saleItem.id"
           >
+            <td>{{ saleItem.sale_number }}</td>
             <td>{{ saleItem.product_name }}</td>
             <td>{{ saleItem.price }}</td>
             <td>{{ saleItem.quantity }}</td>

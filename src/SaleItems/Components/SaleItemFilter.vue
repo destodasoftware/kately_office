@@ -2,13 +2,8 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
-        <label>Nama</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="query.name"
-          @keypress.enter="onFilter"
-        >
+        <label>Nomer Penjualan</label>
+        <input type="text" class="form-control" v-model="query.sale_number" @keypress.enter="onFilter" />
       </div>
     </div>
   </div>
@@ -20,7 +15,7 @@ export default {
   data () {
     return {
       query: {
-        name: ''
+        sale_number: ''
       }
     }
   },

@@ -1,65 +1,65 @@
 const ROOT_API = `${process.env.ROOT_API}`
-const APP = `sales`
-const ENDPOINT = `${ROOT_API}/office/${APP}/`
+const APP = `dashboards`
+const ENDPOINT = `${ROOT_API}/${APP}/`
 
 export default {
   data () {
     return {
-      sales: [],
-      sale: undefined,
-      chartSale: undefined,
-      paginationSale: {
+      dashboards: [],
+      dashboard: undefined,
+      paginationDashboard: {
         next: undefined,
         previous: undefined,
         count: 0
       },
-      querySale: {
+      queryDashboard: {
         page: 1,
-        sale_number: ''
+        name: '',
+        brand: undefined
       }
     }
   },
   methods: {
-    listSale () {
-      return this.axios.get(ENDPOINT, {params: this.querySale})
+    listDashboard () {
+      return this.axios.get(ENDPOINT, {params: this.queryDashboard})
         .then((response) => {
-          this.sales = response.data.results
-          this.paginationSale.next = response.data.next
-          this.paginationSale.previous = response.data.previous
-          this.paginationSale.count = response.data.count
+          this.dashboards = response.data.results
+          this.paginationDashboard.next = response.data.next
+          this.paginationDashboard.previous = response.data.previous
+          this.paginationDashboard.count = response.data.count
         })
     },
-    retrieveSale (id) {
+    retrieveDashboard (id) {
       return this.axios.get(`${ENDPOINT}${id}/`)
         .then((response) => {
-          this.sale = response.data
+          this.dashboard = response.data
         })
     },
-    updateSale (id) {
-      return this.axios.put(`${ENDPOINT}${id}/`, this.sale)
+    updateDashboard (id) {
+      return this.axios.put(`${ENDPOINT}${id}/`, this.dashboard)
         .then((response) => {
-          this.sale = response.data
+          this.dashboard = response.data
         })
     },
-    createSale () {
-      return this.axios.post(ENDPOINT, this.sale)
+    createDashboard () {
+      return this.axios.post(ENDPOINT, this.dashboard)
         .then((response) => {
-          this.sale = response.data
+          this.dashboard = response.data
         })
     },
-    destroySale (id) {
+    destroyDashboard (id) {
       return this.axios.delete(`${ENDPOINT}${id}/`)
         .then((response) => {
-          this.sale = undefined
+          this.dashboard = undefined
         })
     },
-    exportSale () {
+    exportDashboard () {
       const filename = `${new Date()}_.csv`
       return this.axios({
         url: `${ENDPOINT}export/`,
         method: 'GET',
         responseType: 'blob', // important
-        params: this.querySale
+        params: this.queryDashboard
       })
         .then((response) => {
           console.log(response.data)
@@ -69,12 +69,6 @@ export default {
           link.setAttribute('download', filename)
           document.body.appendChild(link)
           link.click()
-        })
-    },
-    apexchartSale () {
-      return this.axios.get(`${ENDPOINT}chart/`)
-        .then((response) => {
-          this.chartSale = response.data
         })
     }
   }

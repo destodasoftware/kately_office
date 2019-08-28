@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     onCreate () {
+      console.log(this.mySale.sale_date)
       this.$emit('onCreate', this.mySale)
     }
   }

@@ -14,7 +14,7 @@ export default {
       },
       querySaleItem: {
         page: 1,
-        sale: ''
+        sale_number: ''
       }
     }
   },
@@ -55,7 +55,25 @@ export default {
     exportSaleItem () {
       const filename = `${new Date()}_.csv`
       return this.axios({
-        url: `${ENDPOINT}export/`,
+        url: `${ENDPOINT}export_csv/`,
+        method: 'GET',
+        responseType: 'blob', // important
+        params: this.querySaleItem
+      })
+        .then((response) => {
+          console.log(response.data)
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute('download', filename)
+          document.body.appendChild(link)
+          link.click()
+        })
+    },
+    exportPakdeSaleItem () {
+      const filename = `${new Date()}_.csv`
+      return this.axios({
+        url: `${ENDPOINT}export_pakde/`,
         method: 'GET',
         responseType: 'blob', // important
         params: this.querySaleItem

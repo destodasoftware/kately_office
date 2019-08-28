@@ -1,7 +1,7 @@
 <template>
   <div>
     <common-navigation />
-    <div class="container">
+    <div class="container-fluid">
       <div class="row mt-3">
         <div class="col-md-2">
           <common-menu/>

@@ -3,31 +3,19 @@
     <div class="col-md-12">
       <div class="form-group">
         <label>Supplier</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="myPurchase.supplier"
+        <input type="text" class="form-control" v-model="myPurchase.supplier"
         >
       </div>
       <div class="form-group">
         <label>Tanggal</label>
-        <vue-datepicker
-          v-model="myPurchase.purchase_date"
-        />
+        <vue-datepicker v-model="myPurchase.purchase_date"/>
       </div>
       <div class="form-group">
         <label>Catatan</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="myPurchase.note"
-        >
+        <input type="text" class="form-control" v-model="myPurchase.note" />
       </div>
       <div class="form-group">
-        <button
-          @click="onCreate"
-          class="btn btn-primary"
-        >
+        <button @click="onCreate" class="btn btn-primary">
           Simpan
         </button>
       </div>
@@ -42,7 +30,7 @@ export default {
     return {
       myPurchase: {
         purchase_number: '',
-        purchase_date: Date.now(),
+        purchase_date: new Date(),
         supplier: '',
         user: undefined,
         note: '',

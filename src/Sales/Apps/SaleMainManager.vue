@@ -166,7 +166,6 @@ export default {
     },
     onCreateSale (sale) {
       sale.sale_number = this.generateSKU('ORD')
-      console.log(sale)
       if (sale.sale_date) {
         const myDate = sale.sale_date
         sale.sale_date = `${myDate.getFullYear()}-${myDate.getMonth()}-${myDate.getDate()}`
@@ -174,9 +173,12 @@ export default {
       this.sale = sale
       this.createSale()
         .then((response) => {
-          this.listSale()
-          this.sale = undefined
-          this.$refs['modal-SaleCreate'].hide()
+          this.$router.push({
+            name: 'SaleComposeManager',
+            params: {
+              id: this.sale.id
+            }
+          })
         })
     },
     onSelectBrand (brand) {

@@ -23,6 +23,7 @@ import {
   faFileExport
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import VueApexCharts from 'vue-apexcharts'
 
 let options = {
   sound: true,
@@ -35,6 +36,7 @@ Vue.config.productionTip = false
 // Global registration
 Vue.component('vue-bootstrap-typeahead', VueBootstrapTypeahead)
 Vue.component('vue-datepicker', Datepicker)
+Vue.component('apexchart', VueApexCharts)
 
 library.add([
   faUserSecret,

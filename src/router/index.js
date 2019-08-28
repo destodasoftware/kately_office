@@ -2,17 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import AboutMainManager from '@/apps/about/AboutMainManager'
 import UserLoginManager from '@/apps/users/UserLoginManager'
-import DashboardMainManager from '@/apps/dashboards/DashboardMainManager'
-// import CategoryMainManager from '@/apps/categories/CategoryMainManager'
-// import BrandMainManager from '@/apps/brands/BrandMainManager'
+import DashboardMainManager from '@/Dashboards/Apps/DashboardMainManager'
 import BrandMainManager from '@/Brands/Apps/BrandMainManager'
 import ArticleMainManager from '@/apps/articles/ArticleMainManager'
 import ArticleComposeManager from '@/apps/articles/ArticleComposeManager'
 import ProductBulkManager from '@/apps/products/ProductBulkManager'
-// import PurchasingMainManager from '@/apps/purchasing/PurchasingMainManager'
-// import PurchaseComposeManager from '@/apps/purchasing/PurchaseComposeManager'
-// import SaleMainManager from '@/apps/sales/SaleMainManager'
-// import SaleComposeManager from '@/apps/sales/SaleComposeManager'
 import SaleReportMainManager from '@/SaleReports/Apps/SaleReportMainManager'
 import CustomerMainManager from '@/Customers/Apps/CustomerMainManager'
 import CategoryMainManager from '@/Categories/Apps/CategoryMainManager'
@@ -22,6 +16,7 @@ import PurchaseMainManager from '@/Purchases/Apps/PurchaseMainManager'
 import PurchaseComposeManager from '@/Purchases/Apps/PurchaseComposeManager'
 import SaleMainManager from '@/Sales/Apps/SaleMainManager'
 import SaleComposeManager from '@/Sales/Apps/SaleComposeManager'
+import SaleItemMainManager from '@/SaleItems/Apps/SaleItemMainManager'
 
 Vue.use(Router)
 
@@ -145,6 +140,14 @@ let router = new Router({
       }
     },
     {
+      path: '/SaleItemMainManager',
+      name: 'SaleItemMainManager',
+      component: SaleItemMainManager,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/SaleReportMainManager',
       name: 'SaleReportMainManager',
       component: SaleReportMainManager,
@@ -166,10 +169,6 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (localStorage.getItem('token') == null) {
-      // next({
-      //     path: '/',
-      //     params: { nextUrl: to.fullPath }
-      // })
       next({path: '/'})
     } else {
       next()
